@@ -8,6 +8,7 @@ import LessonRegistration from "./pages/LessonRegistration";
 import LessonEdit from "./pages/LessonEdit";
 import VideoManagement from "./pages/VideoManagement";
 import VideoRegistration from "./pages/VideoRegistration";
+import VideoEdit from "./pages/VideoEdit";
 import ReservationManagement from "./pages/ReservationManagement";
 import MediaManagement from "./pages/MediaManagement";
 import MediaRegistration from "./pages/MediaRegistration";
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/lessons/edit/:id" element={<LessonEdit />} />
           <Route path="/videos" element={<VideoManagement />} />
           <Route path="/videos/new" element={<VideoRegistration />} />
+          <Route path="/videos/edit/:id" element={<VideoEdit />} />
           <Route path="/reservations" element={<ReservationManagement />} />
           <Route path="/media" element={<MediaManagement />} />
           <Route path="/media/new" element={<MediaRegistration />} />

@@ -4,11 +4,12 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Sidebar from "@/components/Sidebar";
 import { useNavigate } from "react-router-dom";
-import { Plus } from "lucide-react";
+import { Plus, Pencil } from "lucide-react";
 
 const VideoManagement = () => {
   const navigate = useNavigate();
   const videos = Array(8).fill({
+    id: 1,
     title: "英語って楽しい！小学生から始める英会話",
     category: "子供向け",
     channel: "学習塾",
@@ -63,6 +64,7 @@ const VideoManagement = () => {
                   <TableHead>ステータス</TableHead>
                   <TableHead>作成日時</TableHead>
                   <TableHead>更新日時</TableHead>
+                  <TableHead>操作</TableHead>
                 </TableRow>
               </TableHeader>
               <TableBody>
@@ -87,6 +89,16 @@ const VideoManagement = () => {
                     </TableCell>
                     <TableCell>{video.createdAt}</TableCell>
                     <TableCell>{video.updatedAt}</TableCell>
+                    <TableCell>
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={() => navigate(`/videos/edit/${video.id}`)}
+                      >
+                        <Pencil className="w-4 h-4 mr-1" />
+                        編集
+                      </Button>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>
