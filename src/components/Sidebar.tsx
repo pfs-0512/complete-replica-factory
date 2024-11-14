@@ -14,7 +14,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 border-r bg-white">
+    <aside className="w-64 min-w-[16rem] max-w-[16rem] border-r bg-white">
       {menuItems.map((item) => (
         <a
           key={item.label}
@@ -29,8 +29,8 @@ const Sidebar = () => {
             location.pathname === item.path ? "bg-gray-100" : ""
           }`}
         >
-          <span className="flex-1">{item.label}</span>
-          <ChevronRight className="w-4 h-4 text-gray-400" />
+          <span className="flex-1 truncate">{item.label}</span>
+          <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
         </a>
       ))}
     </aside>
