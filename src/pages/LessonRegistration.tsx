@@ -2,10 +2,12 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
+import Sidebar from "@/components/Sidebar";
 
 const LessonRegistration = () => {
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="flex min-h-screen bg-gray-50">
+      <Sidebar />
       <main className="flex-1 p-8">
         <div className="max-w-5xl mx-auto space-y-8">
           <div className="flex justify-between items-center">
