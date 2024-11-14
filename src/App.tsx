@@ -7,6 +7,7 @@ import Index from "./pages/Index";
 import LessonRegistration from "./pages/LessonRegistration";
 import VideoManagement from "./pages/VideoManagement";
 import VideoRegistration from "./pages/VideoRegistration";
+import ReservationManagement from "./pages/ReservationManagement";
 
 const queryClient = new QueryClient();
 
@@ -21,6 +22,7 @@ const App = () => (
           <Route path="/lessons/new" element={<LessonRegistration />} />
           <Route path="/videos" element={<VideoManagement />} />
           <Route path="/videos/new" element={<VideoRegistration />} />
+          <Route path="/reservations" element={<ReservationManagement />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
