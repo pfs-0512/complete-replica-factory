@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import LessonRegistration from "./pages/LessonRegistration";
+import VideoManagement from "./pages/VideoManagement";
 
 const queryClient = new QueryClient();
 
@@ -17,6 +18,7 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/lessons/new" element={<LessonRegistration />} />
+          <Route path="/videos" element={<VideoManagement />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

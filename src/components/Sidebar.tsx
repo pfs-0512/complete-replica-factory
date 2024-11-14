@@ -5,7 +5,7 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const menuItems = [
     { label: "レッスン管理", active: true, path: "/" },
-    { label: "動画管理", active: false },
+    { label: "動画管理", active: false, path: "/videos" },
     { label: "予約管理", active: false },
     { label: "メディア管理", active: false },
     { label: "アカウント管理", active: false },
