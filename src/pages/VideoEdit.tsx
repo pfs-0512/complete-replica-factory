@@ -12,7 +12,6 @@ const VideoEdit = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const { toast } = useToast();
-  const [videoUrl, setVideoUrl] = useState(mockVideo.videoUrl);
 
   // この部分は実際のAPIと連携する際にuseQueryなどで置き換えることを想定
   const mockVideo = {
@@ -23,6 +22,8 @@ const VideoEdit = () => {
     tags: "英会話,初心者",
     description: "楽しく英語を学びましょう！",
   };
+
+  const [videoUrl, setVideoUrl] = useState(mockVideo.videoUrl);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
