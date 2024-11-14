@@ -4,32 +4,41 @@ import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import Sidebar from "@/components/Sidebar";
 import VideoPreview from "@/components/VideoPreview";
-import { useParams } from "react-router-dom";
-import { useToast } from "@/components/ui/use-toast";
+import { useParams, useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { useToast } from "@/components/ui/use-toast";
 
 const VideoEdit = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { toast } = useToast();
+  const [videoUrl, setVideoUrl] = useState(mockVideo.videoUrl);
 
   // この部分は実際のAPIと連携する際にuseQueryなどで置き換えることを想定
   const mockVideo = {
     title: "英語って楽しい！小学生から始める英会話",
-    videoUrl: "https://youtube.com/watch?v=123456789",
+    videoUrl: "https://youtube.com/watch?v=dQw4w9WgXcQ",
     categories: ["子供向け"],
     channels: ["英会話"],
     tags: "英会話,初心者",
     description: "楽しく英語を学びましょう！",
   };
 
-  const [videoUrl, setVideoUrl] = useState(mockVideo.videoUrl);
-
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
-      title: "動画を更新しました",
-      description: "動画の内容が正常に更新されました。",
+      title: "動画を保存しました",
+      description: "動画の内容が正常に保存されました。",
     });
+    navigate("/videos");
+  };
+
+  const handlePublish = () => {
+    toast({
+      title: "動画を公開しました",
+      description: "動画が公開されました。",
+    });
+    navigate("/videos");
   };
 
   return (
@@ -40,8 +49,8 @@ const VideoEdit = () => {
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-semibold">動画編集</h1>
             <div className="space-x-4">
-              <Button variant="outline">下書き保存</Button>
-              <Button onClick={handleSubmit}>更新</Button>
+              <Button variant="outline" onClick={handleSubmit}>下書き保存</Button>
+              <Button onClick={handlePublish}>公開</Button>
             </div>
           </div>
 
