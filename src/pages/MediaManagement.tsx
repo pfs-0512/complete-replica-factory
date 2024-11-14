@@ -8,15 +8,22 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import Sidebar from "@/components/Sidebar";
+import { useNavigate } from "react-router-dom";
 
 const MediaManagement = () => {
+  const navigate = useNavigate();
+
   return (
     <div className="flex h-screen bg-gray-100">
       <Sidebar />
       <main className="flex-1 p-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-semibold">メディア一覧</h1>
-          <Button variant="default" className="bg-gray-900">
+          <Button 
+            variant="default" 
+            className="bg-gray-900"
+            onClick={() => navigate("/media/new")}
+          >
             メディア登録
           </Button>
         </div>
