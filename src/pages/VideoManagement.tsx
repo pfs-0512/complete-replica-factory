@@ -1,6 +1,6 @@
+import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Sidebar from "@/components/Sidebar";
 import { useNavigate } from "react-router-dom";
@@ -21,30 +21,30 @@ const VideoManagement = () => {
     <div className="flex h-screen bg-gray-100">
       <Sidebar />
       <div className="flex-1 p-8">
+        <div className="mb-8">
+          <h1 className="text-2xl font-semibold">動画一覧</h1>
+        </div>
+
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex justify-between items-center mb-6">
-            <h1 className="text-2xl font-semibold">動画一覧</h1>
+            <div className="flex gap-4 flex-1">
+              <div className="flex-1">
+                <Input type="text" placeholder="キーワード検索" />
+              </div>
+              <div className="w-48">
+                <Select>
+                  <SelectTrigger>
+                    <SelectValue placeholder="公開中" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="public">公開中</SelectItem>
+                    <SelectItem value="draft">下書き</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+              <Button>検索</Button>
+            </div>
             <Button onClick={() => navigate("/videos/new")}>動画登録</Button>
-          </div>
-
-          <div className="flex gap-4 mb-6 items-end">
-            <div className="flex-1">
-              <label className="block text-sm mb-2">キーワード検索</label>
-              <Input type="text" placeholder="" />
-            </div>
-            <div className="w-48">
-              <label className="block text-sm mb-2">ステータス</label>
-              <Select>
-                <SelectTrigger>
-                  <SelectValue placeholder="公開中" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="public">公開中</SelectItem>
-                  <SelectItem value="draft">下書き</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
-            <Button>検索</Button>
           </div>
 
           <div className="overflow-x-auto">
@@ -92,7 +92,7 @@ const VideoManagement = () => {
             {[1, 2, 3, 4, 5, 6].map((page) => (
               <Button
                 key={page}
-                variant="outline"
+                variant={page === 1 ? "default" : "outline"}
                 size="sm"
                 className="w-8 h-8 p-0"
               >
