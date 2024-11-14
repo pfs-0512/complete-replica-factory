@@ -34,7 +34,7 @@ const ReservationManagement = () => {
     <div className="flex h-screen bg-gray-100">
       <Sidebar />
       <div className="flex-1 p-8">
-        <div className="flex justify-between items-center mb-6">
+        <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-semibold">予約一覧</h1>
           <Button variant="default" onClick={() => window.location.href = "/videos/new"}>
             動画登録
@@ -43,7 +43,7 @@ const ReservationManagement = () => {
 
         <div className="flex gap-4 mb-6">
           <div className="flex-1">
-            <Input type="text" placeholder="キーワード検索" className="w-full" />
+            <Input type="text" placeholder="キーワード検索" />
           </div>
           <div className="w-48">
             <Select>
