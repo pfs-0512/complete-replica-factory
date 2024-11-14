@@ -147,12 +147,12 @@ const LessonTable = () => {
                   <td className="table-cell text-gray-500">{lesson.updatedAt}</td>
                   <td className="table-cell">
                     <Button
-                      variant="ghost"
+                      variant="outline"
                       size="sm"
-                      className="text-gray-500 hover:text-gray-700"
                       onClick={() => handleEdit(index)}
                     >
-                      <Pencil className="w-4 h-4" />
+                      <Pencil className="w-4 h-4 mr-1" />
+                      編集
                     </Button>
                   </td>
                 </tr>
