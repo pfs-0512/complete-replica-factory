@@ -10,7 +10,7 @@ const LessonTable = () => {
   const lessons = [
     {
       title: "英語って楽しい！小学生から始める英会話",
-      category: "子供向け",
+      category: "子ども向け",
       channel: "学習塾",
       tag: "英会話",
       status: "下書き",
@@ -18,23 +18,69 @@ const LessonTable = () => {
       updatedAt: "2024/10/31 9:00"
     },
     {
-      title: "英語って楽しい！小学生から始める英会話",
-      category: "子供向け",
+      title: "親子で楽しむプログラミング入門",
+      category: "親子向け",
+      channel: "プログラミング",
+      tag: "プログラミング",
+      status: "予約受付中",
+      createdAt: "2024/10/28 10:25",
+      updatedAt: "2024/10/31 9:00"
+    },
+    {
+      title: "子育ての悩み相談会",
+      category: "親御さん向け",
+      channel: "子育て支援",
+      tag: "子育て",
+      status: "予約受付中",
+      createdAt: "2024/10/28 10:25",
+      updatedAt: "2024/10/31 9:00"
+    },
+    {
+      title: "楽しく学ぶ算数教室",
+      category: "子ども向け",
       channel: "学習塾",
-      tag: "英会話",
+      tag: "算数",
+      status: "予約受付中",
+      createdAt: "2024/10/28 10:25",
+      updatedAt: "2024/10/31 9:00"
+    },
+    {
+      title: "親子でチャレンジ！科学実験",
+      category: "親子向け",
+      channel: "科学教室",
+      tag: "理科",
+      status: "予約締切",
+      createdAt: "2024/10/28 10:25",
+      updatedAt: "2024/10/31 9:00"
+    },
+    {
+      title: "子どもの成長と向き合う勉強会",
+      category: "親御さん向け",
+      channel: "子育て支援",
+      tag: "教育",
+      status: "予約受付中",
+      createdAt: "2024/10/28 10:25",
+      updatedAt: "2024/10/31 9:00"
+    },
+    {
+      title: "小学生のための作文教室",
+      category: "子ども向け",
+      channel: "学習塾",
+      tag: "国語",
+      status: "予約受付中",
+      createdAt: "2024/10/28 10:25",
+      updatedAt: "2024/10/31 9:00"
+    },
+    {
+      title: "親子料理教室：基礎から学ぶ",
+      category: "親子向け",
+      channel: "料理教室",
+      tag: "料理",
       status: "予約受付中",
       createdAt: "2024/10/28 10:25",
       updatedAt: "2024/10/31 9:00"
     }
-  ].concat(Array(6).fill({
-    title: "英語って楽しい！小学生から始める英会話",
-    category: "子供向け",
-    channel: "学習塾",
-    tag: "英会話",
-    status: "予約受付中",
-    createdAt: "2024/10/28 10:25",
-    updatedAt: "2024/10/31 9:00"
-  }));
+  ];
 
   const getStatusStyle = (status: string) => {
     switch (status) {
