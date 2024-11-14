@@ -3,8 +3,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import Sidebar from "@/components/Sidebar";
+import VideoPreview from "@/components/VideoPreview";
+import { useState } from "react";
 
 const VideoRegistration = () => {
+  const [videoUrl, setVideoUrl] = useState("");
+
   return (
     <div className="flex h-screen bg-gray-100">
       <Sidebar />
@@ -26,8 +30,19 @@ const VideoRegistration = () => {
 
             <div>
               <label className="block text-sm mb-2">動画URL</label>
-              <Input type="url" />
+              <Input 
+                type="url" 
+                value={videoUrl}
+                onChange={(e) => setVideoUrl(e.target.value)}
+              />
             </div>
+
+            {videoUrl && (
+              <div>
+                <label className="block text-sm mb-2">プレビュー</label>
+                <VideoPreview url={videoUrl} />
+              </div>
+            )}
 
             <div>
               <label className="block text-sm mb-2">サムネイル</label>

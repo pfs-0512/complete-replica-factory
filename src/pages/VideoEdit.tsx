@@ -3,8 +3,10 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import Sidebar from "@/components/Sidebar";
+import VideoPreview from "@/components/VideoPreview";
 import { useParams } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
+import { useState } from "react";
 
 const VideoEdit = () => {
   const { id } = useParams();
@@ -19,6 +21,8 @@ const VideoEdit = () => {
     tags: "英会話,初心者",
     description: "楽しく英語を学びましょう！",
   };
+
+  const [videoUrl, setVideoUrl] = useState(mockVideo.videoUrl);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -49,8 +53,19 @@ const VideoEdit = () => {
 
             <div>
               <label className="block text-sm mb-2">動画URL</label>
-              <Input type="url" defaultValue={mockVideo.videoUrl} />
+              <Input 
+                type="url" 
+                value={videoUrl}
+                onChange={(e) => setVideoUrl(e.target.value)}
+              />
             </div>
+
+            {videoUrl && (
+              <div>
+                <label className="block text-sm mb-2">プレビュー</label>
+                <VideoPreview url={videoUrl} />
+              </div>
+            )}
 
             <div>
               <label className="block text-sm mb-2">サムネイル</label>
