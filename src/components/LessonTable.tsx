@@ -2,12 +2,7 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight, BookOpen, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
+import LessonDetailModal from "./LessonDetailModal";
 
 const LessonTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -22,7 +17,13 @@ const LessonTable = () => {
       tag: "英会話",
       status: "下書き",
       createdAt: "2024/10/28 10:25",
-      updatedAt: "2024/10/31 9:00"
+      updatedAt: "2024/10/31 9:00",
+      zoomUrl: "https://zoom.us/j/123456789",
+      date: "2024-03-20",
+      startTime: "10:00",
+      endTime: "11:00",
+      capacity: 10,
+      description: "楽しく英語を学びましょう！"
     },
     {
       title: "親子で楽しむプログラミング入門",
@@ -31,7 +32,13 @@ const LessonTable = () => {
       tag: "プログラミング",
       status: "予約受付中",
       createdAt: "2024/10/28 10:25",
-      updatedAt: "2024/10/31 9:00"
+      updatedAt: "2024/10/31 9:00",
+      zoomUrl: "https://zoom.us/j/123456780",
+      date: "2024-04-01",
+      startTime: "14:00",
+      endTime: "15:00",
+      capacity: 20,
+      description: "親子でプログラミングを楽しむ入門セッション"
     },
     {
       title: "子育ての悩み相談会",
@@ -40,7 +47,13 @@ const LessonTable = () => {
       tag: "子育て",
       status: "予約受付中",
       createdAt: "2024/10/28 10:25",
-      updatedAt: "2024/10/31 9:00"
+      updatedAt: "2024/10/31 9:00",
+      zoomUrl: "https://zoom.us/j/123456781",
+      date: "2024-04-10",
+      startTime: "13:00",
+      endTime: "14:30",
+      capacity: 15,
+      description: "子育てに関する悩みを共有する会"
     },
     {
       title: "楽しく学ぶ算数教室",
@@ -49,7 +62,13 @@ const LessonTable = () => {
       tag: "算数",
       status: "予約受付中",
       createdAt: "2024/10/28 10:25",
-      updatedAt: "2024/10/31 9:00"
+      updatedAt: "2024/10/31 9:00",
+      zoomUrl: "https://zoom.us/j/123456782",
+      date: "2024-04-15",
+      startTime: "16:00",
+      endTime: "17:00",
+      capacity: 10,
+      description: "算数を楽しく学ぼう"
     },
     {
       title: "親子でチャレンジ！科学実験",
@@ -58,7 +77,13 @@ const LessonTable = () => {
       tag: "理科",
       status: "予約締切",
       createdAt: "2024/10/28 10:25",
-      updatedAt: "2024/10/31 9:00"
+      updatedAt: "2024/10/31 9:00",
+      zoomUrl: "https://zoom.us/j/123456783",
+      date: "2024-04-20",
+      startTime: "10:30",
+      endTime: "12:00",
+      capacity: 10,
+      description: "親子で楽しく科学実験をやろう"
     },
     {
       title: "子どもの成長と向き合う勉強会",
@@ -67,7 +92,13 @@ const LessonTable = () => {
       tag: "教育",
       status: "予約受付中",
       createdAt: "2024/10/28 10:25",
-      updatedAt: "2024/10/31 9:00"
+      updatedAt: "2024/10/31 9:00",
+      zoomUrl: "https://zoom.us/j/123456784",
+      date: "2024-04-25",
+      startTime: "18:00",
+      endTime: "19:30",
+      capacity: 12,
+      description: "子どもとの向き合い方についての勉強会"
     },
     {
       title: "小学生のための作文教室",
@@ -76,7 +107,13 @@ const LessonTable = () => {
       tag: "国語",
       status: "予約受付中",
       createdAt: "2024/10/28 10:25",
-      updatedAt: "2024/10/31 9:00"
+      updatedAt: "2024/10/31 9:00",
+      zoomUrl: "https://zoom.us/j/123456785",
+      date: "2024-05-01",
+      startTime: "15:00",
+      endTime: "16:30",
+      capacity: 15,
+      description: "小学生が楽しく作文を書くための教室"
     },
     {
       title: "親子料理教室：基礎から学ぶ",
@@ -85,7 +122,13 @@ const LessonTable = () => {
       tag: "料理",
       status: "予約受付中",
       createdAt: "2024/10/28 10:25",
-      updatedAt: "2024/10/31 9:00"
+      updatedAt: "2024/10/31 9:00",
+      zoomUrl: "https://zoom.us/j/123456786",
+      date: "2024-05-05",
+      startTime: "11:00",
+      endTime: "12:30",
+      capacity: 10,
+      description: "親子で楽しむ料理教室"
     }
   ];
 
@@ -198,45 +241,11 @@ const LessonTable = () => {
         </button>
       </div>
 
-      <Dialog open={!!selectedLesson} onOpenChange={() => setSelectedLesson(null)}>
-        <DialogContent className="max-w-2xl">
-          <DialogHeader>
-            <DialogTitle className="text-xl font-bold">{selectedLesson?.title}</DialogTitle>
-          </DialogHeader>
-          <div className="space-y-4 mt-4">
-            <div>
-              <h3 className="font-medium text-gray-700 mb-1">カテゴリ</h3>
-              <span className="px-2 py-1 bg-purple-50 text-purple-700 rounded-full text-sm">
-                {selectedLesson?.category}
-              </span>
-            </div>
-            <div>
-              <h3 className="font-medium text-gray-700 mb-1">チャネル</h3>
-              <p>{selectedLesson?.channel}</p>
-            </div>
-            <div>
-              <h3 className="font-medium text-gray-700 mb-1">タグ</h3>
-              <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-sm">
-                {selectedLesson?.tag}
-              </span>
-            </div>
-            <div>
-              <h3 className="font-medium text-gray-700 mb-1">ステータス</h3>
-              <span className={`px-2 py-1 rounded-full text-sm ${getStatusStyle(selectedLesson?.status)}`}>
-                {selectedLesson?.status}
-              </span>
-            </div>
-            <div>
-              <h3 className="font-medium text-gray-700 mb-1">作成日時</h3>
-              <p className="text-gray-600">{selectedLesson?.createdAt}</p>
-            </div>
-            <div>
-              <h3 className="font-medium text-gray-700 mb-1">更新日時</h3>
-              <p className="text-gray-600">{selectedLesson?.updatedAt}</p>
-            </div>
-          </div>
-        </DialogContent>
-      </Dialog>
+      <LessonDetailModal
+        lesson={selectedLesson}
+        open={!!selectedLesson}
+        onOpenChange={() => setSelectedLesson(null)}
+      />
     </div>
   );
 };
