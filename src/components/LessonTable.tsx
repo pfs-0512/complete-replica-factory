@@ -1,3 +1,4 @@
+```tsx
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, BookOpen, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -57,61 +58,63 @@ const LessonTable = () => {
 
   return (
     <div className="bg-white rounded-lg">
-      <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200">
-          <thead className="bg-gray-50">
-            <tr>
-              <th className="table-header">タイトル</th>
-              <th className="table-header">カテゴリ</th>
-              <th className="table-header">チャネル</th>
-              <th className="table-header">タグ</th>
-              <th className="table-header">ステータス</th>
-              <th className="table-header">作成日時</th>
-              <th className="table-header">更新日時</th>
-              <th className="table-header">操作</th>
-            </tr>
-          </thead>
-          <tbody className="divide-y divide-gray-200 bg-white">
-            {lessons.map((lesson, index) => (
-              <tr key={index} className="hover:bg-gray-50 transition-colors duration-200">
-                <td className="table-cell">
-                  <div className="flex items-center gap-2">
-                    <BookOpen className="w-4 h-4 text-gray-400" />
-                    {lesson.title}
-                  </div>
-                </td>
-                <td className="table-cell">
-                  <span className="px-2 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-medium">
-                    {lesson.category}
-                  </span>
-                </td>
-                <td className="table-cell">{lesson.channel}</td>
-                <td className="table-cell">
-                  <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
-                    {lesson.tag}
-                  </span>
-                </td>
-                <td className="table-cell">
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusStyle(lesson.status)}`}>
-                    {lesson.status}
-                  </span>
-                </td>
-                <td className="table-cell text-gray-500">{lesson.createdAt}</td>
-                <td className="table-cell text-gray-500">{lesson.updatedAt}</td>
-                <td className="table-cell">
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className="text-gray-500 hover:text-gray-700"
-                    onClick={() => handleEdit(index)}
-                  >
-                    <Pencil className="w-4 h-4" />
-                  </Button>
-                </td>
+      <div className="w-full overflow-x-auto">
+        <div className="min-w-[1000px]">
+          <table className="w-full divide-y divide-gray-200">
+            <thead className="bg-gray-50">
+              <tr>
+                <th className="table-header">タイトル</th>
+                <th className="table-header">カテゴリ</th>
+                <th className="table-header">チャネル</th>
+                <th className="table-header">タグ</th>
+                <th className="table-header">ステータス</th>
+                <th className="table-header">作成日時</th>
+                <th className="table-header">更新日時</th>
+                <th className="table-header">操作</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+            </thead>
+            <tbody className="divide-y divide-gray-200 bg-white">
+              {lessons.map((lesson, index) => (
+                <tr key={index} className="hover:bg-gray-50 transition-colors duration-200">
+                  <td className="table-cell">
+                    <div className="flex items-center gap-2">
+                      <BookOpen className="w-4 h-4 text-gray-400" />
+                      {lesson.title}
+                    </div>
+                  </td>
+                  <td className="table-cell">
+                    <span className="px-2 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-medium">
+                      {lesson.category}
+                    </span>
+                  </td>
+                  <td className="table-cell">{lesson.channel}</td>
+                  <td className="table-cell">
+                    <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
+                      {lesson.tag}
+                    </span>
+                  </td>
+                  <td className="table-cell">
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusStyle(lesson.status)}`}>
+                      {lesson.status}
+                    </span>
+                  </td>
+                  <td className="table-cell text-gray-500">{lesson.createdAt}</td>
+                  <td className="table-cell text-gray-500">{lesson.updatedAt}</td>
+                  <td className="table-cell">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      className="text-gray-500 hover:text-gray-700"
+                      onClick={() => handleEdit(index)}
+                    >
+                      <Pencil className="w-4 h-4" />
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
       
       <div className="flex items-center justify-center gap-2 py-4 border-t">
@@ -144,3 +147,4 @@ const LessonTable = () => {
 };
 
 export default LessonTable;
+```

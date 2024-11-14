@@ -53,56 +53,58 @@ const VideoManagement = () => {
             <Button>検索</Button>
           </div>
 
-          <div className="overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead>タイトル</TableHead>
-                  <TableHead>カテゴリ</TableHead>
-                  <TableHead>チャネル</TableHead>
-                  <TableHead>タグ</TableHead>
-                  <TableHead>ステータス</TableHead>
-                  <TableHead>作成日時</TableHead>
-                  <TableHead>更新日時</TableHead>
-                  <TableHead>操作</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {videos.map((video, index) => (
-                  <TableRow key={index}>
-                    <TableCell>{video.title}</TableCell>
-                    <TableCell>
-                      <span className="px-2 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-medium">
-                        {video.category}
-                      </span>
-                    </TableCell>
-                    <TableCell>{video.channel}</TableCell>
-                    <TableCell>
-                      <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
-                        {video.tag}
-                      </span>
-                    </TableCell>
-                    <TableCell>
-                      <span className="px-2 py-1 bg-green-50 text-green-700 rounded-full text-xs font-medium">
-                        {video.status}
-                      </span>
-                    </TableCell>
-                    <TableCell>{video.createdAt}</TableCell>
-                    <TableCell>{video.updatedAt}</TableCell>
-                    <TableCell>
-                      <Button
-                        variant="outline"
-                        size="sm"
-                        onClick={() => navigate(`/videos/edit/${video.id}`)}
-                      >
-                        <Pencil className="w-4 h-4 mr-1" />
-                        編集
-                      </Button>
-                    </TableCell>
+          <div className="w-full overflow-x-auto">
+            <div className="min-w-[1000px]">
+              <Table>
+                <TableHeader>
+                  <TableRow>
+                    <TableHead>タイトル</TableHead>
+                    <TableHead>カテゴリ</TableHead>
+                    <TableHead>チャネル</TableHead>
+                    <TableHead>タグ</TableHead>
+                    <TableHead>ステータス</TableHead>
+                    <TableHead>作成日時</TableHead>
+                    <TableHead>更新日時</TableHead>
+                    <TableHead>操作</TableHead>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHeader>
+                <TableBody>
+                  {videos.map((video, index) => (
+                    <TableRow key={index}>
+                      <TableCell>{video.title}</TableCell>
+                      <TableCell>
+                        <span className="px-2 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-medium">
+                          {video.category}
+                        </span>
+                      </TableCell>
+                      <TableCell>{video.channel}</TableCell>
+                      <TableCell>
+                        <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
+                          {video.tag}
+                        </span>
+                      </TableCell>
+                      <TableCell>
+                        <span className="px-2 py-1 bg-green-50 text-green-700 rounded-full text-xs font-medium">
+                          {video.status}
+                        </span>
+                      </TableCell>
+                      <TableCell>{video.createdAt}</TableCell>
+                      <TableCell>{video.updatedAt}</TableCell>
+                      <TableCell>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          onClick={() => navigate(`/videos/edit/${video.id}`)}
+                        >
+                          <Pencil className="w-4 h-4 mr-1" />
+                          編集
+                        </Button>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </div>
           </div>
 
           <div className="flex justify-center gap-2 mt-4">
