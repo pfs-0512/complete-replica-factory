@@ -22,6 +22,7 @@ const LessonEdit = () => {
     channels: ["英会話"],
     tags: "英会話,初心者",
     description: "楽しく英語を学びましょう！",
+    status: "下書き"
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -29,6 +30,13 @@ const LessonEdit = () => {
     toast({
       title: "レッスンを更新しました",
       description: "レッスンの内容が正常に更新されました。",
+    });
+  };
+
+  const handlePublish = () => {
+    toast({
+      title: "レッスンを公開しました",
+      description: "レッスンが公開されました。",
     });
   };
 
@@ -41,7 +49,9 @@ const LessonEdit = () => {
             <h1 className="text-3xl font-bold text-gray-900">レッスン編集</h1>
             <div className="space-x-4">
               <Button variant="outline">下書き保存</Button>
-              <Button onClick={handleSubmit}>更新</Button>
+              {mockLesson.status === "下書き" && (
+                <Button onClick={handlePublish}>公開</Button>
+              )}
             </div>
           </div>
 
@@ -79,42 +89,54 @@ const LessonEdit = () => {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">サムネイル</label>
-                <Input type="file" accept="image/*" />
+                <Button variant="secondary">ファイルを選択</Button>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">カテゴリ</label>
-                <div className="flex gap-6">
-                  {["親子向け", "子供向け", "保護者向け"].map((category) => (
-                    <div key={category} className="flex items-center space-x-2">
-                      <Checkbox 
-                        id={category} 
-                        defaultChecked={mockLesson.categories.includes(category)}
-                      />
-                      <label htmlFor={category} className="text-sm text-gray-600">{category}</label>
-                    </div>
-                  ))}
+                <div className="flex gap-4">
+                  <label className="flex items-center space-x-2">
+                    <Checkbox 
+                      id="parent" 
+                      defaultChecked={mockLesson.categories.includes("親子向け")}
+                    />
+                    <span>親子向け</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <Checkbox 
+                      id="children" 
+                      defaultChecked={mockLesson.categories.includes("子供向け")}
+                    />
+                    <span>子供向け</span>
+                  </label>
+                  <label className="flex items-center space-x-2">
+                    <Checkbox 
+                      id="guardian" 
+                      defaultChecked={mockLesson.categories.includes("保護者向け")}
+                    />
+                    <span>保護者向け</span>
+                  </label>
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-3">チャネル</label>
-                <div className="flex gap-6 flex-wrap">
+                <div className="flex gap-4 flex-wrap">
                   {["プログラミング", "サッカー", "ダンス", "美容", "英会話"].map((channel) => (
-                    <div key={channel} className="flex items-center space-x-2">
+                    <label key={channel} className="flex items-center space-x-2">
                       <Checkbox 
                         id={channel} 
                         defaultChecked={mockLesson.channels.includes(channel)}
                       />
-                      <label htmlFor={channel} className="text-sm text-gray-600">{channel}</label>
-                    </div>
+                      <span>{channel}</span>
+                    </label>
                   ))}
                 </div>
               </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">タグ</label>
-                <Input type="text" defaultValue={mockLesson.tags} placeholder="カンマ区切りでタグを入力" />
+                <Input type="text" defaultValue={mockLesson.tags} />
               </div>
 
               <div>
@@ -122,7 +144,6 @@ const LessonEdit = () => {
                 <Textarea 
                   className="min-h-[200px]" 
                   defaultValue={mockLesson.description}
-                  placeholder="レッスンの詳細な説明を入力してください" 
                 />
               </div>
             </div>
