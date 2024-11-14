@@ -11,10 +11,12 @@ import {
 import { Search, Plus } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
 import LessonTable from "@/components/LessonTable";
+import { useNavigate } from "react-router-dom";
 
 const Index = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [status, setStatus] = useState("予約受付中");
+  const navigate = useNavigate();
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -23,7 +25,10 @@ const Index = () => {
         <div className="max-w-7xl mx-auto space-y-8">
           <div className="flex justify-between items-center">
             <h1 className="text-3xl font-bold text-gray-900">レッスン一覧</h1>
-            <Button className="bg-primary hover:bg-primary/90 text-white gap-2">
+            <Button 
+              className="bg-primary hover:bg-primary/90 text-white gap-2"
+              onClick={() => navigate("/lessons/new")}
+            >
               <Plus className="w-4 h-4" />
               レッスン登録
             </Button>
