@@ -1,10 +1,22 @@
 import { useState } from "react";
-import { ChevronLeft, ChevronRight, BookOpen } from "lucide-react";
+import { ChevronLeft, ChevronRight, BookOpen, Pencil } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router-dom";
 
 const LessonTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const navigate = useNavigate();
 
   const lessons = [
+    {
+      title: "英語って楽しい！小学生から始める英会話",
+      category: "子供向け",
+      channel: "学習塾",
+      tag: "英会話",
+      status: "下書き",
+      createdAt: "2024/10/28 10:25",
+      updatedAt: "2024/10/31 9:00",
+    },
     {
       title: "英語って楽しい！小学生から始める英会話",
       category: "子供向け",
@@ -14,7 +26,7 @@ const LessonTable = () => {
       createdAt: "2024/10/28 10:25",
       updatedAt: "2024/10/31 9:00",
     },
-  ].concat(Array(7).fill({
+  ].concat(Array(6).fill({
     title: "英語って楽しい！小学生から始める英会話",
     category: "子供向け",
     channel: "学習塾",
@@ -23,6 +35,25 @@ const LessonTable = () => {
     createdAt: "2024/10/28 10:25",
     updatedAt: "2024/10/31 9:00",
   }));
+
+  const getStatusStyle = (status: string) => {
+    switch (status) {
+      case "下書き":
+        return "bg-gray-50 text-gray-700";
+      case "予約受付中":
+        return "bg-green-50 text-green-700";
+      case "予約締切":
+        return "bg-yellow-50 text-yellow-700";
+      case "終了":
+        return "bg-red-50 text-red-700";
+      default:
+        return "bg-gray-50 text-gray-700";
+    }
+  };
+
+  const handleEdit = (index: number) => {
+    navigate(`/lessons/edit/${index}`);
+  };
 
   return (
     <div className="bg-white rounded-lg">
@@ -37,6 +68,7 @@ const LessonTable = () => {
               <th className="table-header">ステータス</th>
               <th className="table-header">作成日時</th>
               <th className="table-header">更新日時</th>
+              <th className="table-header">操作</th>
             </tr>
           </thead>
           <tbody className="divide-y divide-gray-200 bg-white">
@@ -60,12 +92,22 @@ const LessonTable = () => {
                   </span>
                 </td>
                 <td className="table-cell">
-                  <span className="px-2 py-1 bg-green-50 text-green-700 rounded-full text-xs font-medium">
+                  <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusStyle(lesson.status)}`}>
                     {lesson.status}
                   </span>
                 </td>
                 <td className="table-cell text-gray-500">{lesson.createdAt}</td>
                 <td className="table-cell text-gray-500">{lesson.updatedAt}</td>
+                <td className="table-cell">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="text-gray-500 hover:text-gray-700"
+                    onClick={() => handleEdit(index)}
+                  >
+                    <Pencil className="w-4 h-4" />
+                  </Button>
+                </td>
               </tr>
             ))}
           </tbody>
