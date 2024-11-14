@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/select";
 import Sidebar from "@/components/Sidebar";
 import { useNavigate } from "react-router-dom";
+import { Plus } from "lucide-react";
 
 const MediaManagement = () => {
   const navigate = useNavigate();
@@ -17,35 +18,34 @@ const MediaManagement = () => {
     <div className="flex h-screen bg-gray-100">
       <Sidebar />
       <div className="flex-1 p-8">
-        <div className="mb-8">
+        <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-semibold">メディア一覧</h1>
+          <Button 
+            className="bg-primary hover:bg-primary/90 text-white gap-2"
+            onClick={() => navigate("/media/new")}
+          >
+            <Plus className="w-4 h-4" />
+            メディア登録
+          </Button>
         </div>
 
         <div className="bg-white rounded-lg shadow p-6">
-          <div className="flex justify-between items-center mb-6">
-            <div className="flex gap-4 flex-1">
-              <div className="flex-1">
-                <Input type="text" placeholder="キーワード検索" />
-              </div>
-              <div className="w-40">
-                <Select>
-                  <SelectTrigger>
-                    <SelectValue placeholder="画像" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="image">画像</SelectItem>
-                    <SelectItem value="video">動画</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <Button>検索</Button>
+          <div className="flex gap-4 mb-6">
+            <div className="flex-1">
+              <Input type="text" placeholder="キーワード検索" />
             </div>
-            <Button 
-              variant="default"
-              onClick={() => navigate("/media/new")}
-            >
-              メディア登録
-            </Button>
+            <div className="w-40">
+              <Select>
+                <SelectTrigger>
+                  <SelectValue placeholder="画像" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="image">画像</SelectItem>
+                  <SelectItem value="video">動画</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+            <Button>検索</Button>
           </div>
 
           <div className="grid grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
