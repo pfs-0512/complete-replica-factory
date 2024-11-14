@@ -3,8 +3,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Button } from "@/components/ui/button";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Sidebar from "@/components/Sidebar";
+import { useNavigate } from "react-router-dom";
 
 const VideoManagement = () => {
+  const navigate = useNavigate();
   const videos = Array(8).fill({
     title: "英語って楽しい！小学生から始める英会話",
     category: "子供向け",
@@ -22,7 +24,7 @@ const VideoManagement = () => {
         <div className="bg-white rounded-lg shadow p-6">
           <div className="flex justify-between items-center mb-6">
             <h1 className="text-2xl font-semibold">動画一覧</h1>
-            <Button variant="default">動画登録</Button>
+            <Button onClick={() => navigate("/videos/new")}>動画登録</Button>
           </div>
 
           <div className="flex gap-4 mb-6 items-end">

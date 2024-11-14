@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import LessonRegistration from "./pages/LessonRegistration";
 import VideoManagement from "./pages/VideoManagement";
+import VideoRegistration from "./pages/VideoRegistration";
 
 const queryClient = new QueryClient();
 
@@ -19,6 +20,7 @@ const App = () => (
           <Route path="/" element={<Index />} />
           <Route path="/lessons/new" element={<LessonRegistration />} />
           <Route path="/videos" element={<VideoManagement />} />
+          <Route path="/videos/new" element={<VideoRegistration />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
