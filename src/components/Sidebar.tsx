@@ -14,7 +14,7 @@ const Sidebar = () => {
   ];
 
   return (
-    <aside className="w-64 min-w-[16rem] max-w-[16rem] border-r bg-white">
+    <aside className="w-56 border-r bg-white">
       {menuItems.map((item) => (
         <a
           key={item.label}
