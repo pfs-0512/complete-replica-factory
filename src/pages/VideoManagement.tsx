@@ -3,21 +3,35 @@ import { Input } from "@/components/ui/input";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import Sidebar from "@/components/Sidebar";
+import VideoDetailModal from "@/components/VideoDetailModal";
 import { useNavigate } from "react-router-dom";
 import { Plus, Pencil } from "lucide-react";
+import { useState } from "react";
 
 const VideoManagement = () => {
   const navigate = useNavigate();
+  const [selectedVideo, setSelectedVideo] = useState<any>(null);
+
   const videos = Array(8).fill({
     id: 1,
     title: "英語って楽しい！小学生から始める英会話",
+    videoUrl: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
     category: "子供向け",
     channel: "学習塾",
     tag: "英会話",
     status: "公開中",
+    description: "楽しく英語を学びましょう！",
     createdAt: "2024/10/28 10:25",
     updatedAt: "2024/10/31 9:00",
   });
+
+  const handleRowClick = (e: React.MouseEvent, video: any) => {
+    // 編集ボタンがクリックされた場合は、行のクリックイベントを発火させない
+    if ((e.target as HTMLElement).closest('button')) {
+      return;
+    }
+    setSelectedVideo(video);
+  };
 
   return (
     <div className="flex h-screen bg-gray-100">
@@ -70,7 +84,11 @@ const VideoManagement = () => {
                 </TableHeader>
                 <TableBody>
                   {videos.map((video, index) => (
-                    <TableRow key={index}>
+                    <TableRow 
+                      key={index}
+                      className="cursor-pointer hover:bg-gray-50"
+                      onClick={(e) => handleRowClick(e, video)}
+                    >
                       <TableCell>{video.title}</TableCell>
                       <TableCell>
                         <span className="px-2 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-medium">
@@ -121,6 +139,12 @@ const VideoManagement = () => {
           </div>
         </div>
       </div>
+
+      <VideoDetailModal
+        video={selectedVideo}
+        open={!!selectedVideo}
+        onOpenChange={() => setSelectedVideo(null)}
+      />
     </div>
   );
 };
