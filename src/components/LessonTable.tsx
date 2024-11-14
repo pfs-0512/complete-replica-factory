@@ -2,9 +2,16 @@ import { useState } from "react";
 import { ChevronLeft, ChevronRight, BookOpen, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
 
 const LessonTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
+  const [selectedLesson, setSelectedLesson] = useState<any>(null);
   const navigate = useNavigate();
 
   const lessons = [
@@ -122,10 +129,13 @@ const LessonTable = () => {
               {lessons.map((lesson, index) => (
                 <tr key={index} className="hover:bg-gray-50 transition-colors duration-200">
                   <td className="table-cell">
-                    <div className="flex items-center gap-2">
+                    <button
+                      onClick={() => setSelectedLesson(lesson)}
+                      className="flex items-center gap-2 hover:text-primary transition-colors"
+                    >
                       <BookOpen className="w-4 h-4 text-gray-400" />
                       {lesson.title}
-                    </div>
+                    </button>
                   </td>
                   <td className="table-cell">
                     <span className="px-2 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-medium">
@@ -187,6 +197,46 @@ const LessonTable = () => {
           <ChevronRight className="w-4 h-4" />
         </button>
       </div>
+
+      <Dialog open={!!selectedLesson} onOpenChange={() => setSelectedLesson(null)}>
+        <DialogContent className="max-w-2xl">
+          <DialogHeader>
+            <DialogTitle className="text-xl font-bold">{selectedLesson?.title}</DialogTitle>
+          </DialogHeader>
+          <div className="space-y-4 mt-4">
+            <div>
+              <h3 className="font-medium text-gray-700 mb-1">カテゴリ</h3>
+              <span className="px-2 py-1 bg-purple-50 text-purple-700 rounded-full text-sm">
+                {selectedLesson?.category}
+              </span>
+            </div>
+            <div>
+              <h3 className="font-medium text-gray-700 mb-1">チャネル</h3>
+              <p>{selectedLesson?.channel}</p>
+            </div>
+            <div>
+              <h3 className="font-medium text-gray-700 mb-1">タグ</h3>
+              <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-sm">
+                {selectedLesson?.tag}
+              </span>
+            </div>
+            <div>
+              <h3 className="font-medium text-gray-700 mb-1">ステータス</h3>
+              <span className={`px-2 py-1 rounded-full text-sm ${getStatusStyle(selectedLesson?.status)}`}>
+                {selectedLesson?.status}
+              </span>
+            </div>
+            <div>
+              <h3 className="font-medium text-gray-700 mb-1">作成日時</h3>
+              <p className="text-gray-600">{selectedLesson?.createdAt}</p>
+            </div>
+            <div>
+              <h3 className="font-medium text-gray-700 mb-1">更新日時</h3>
+              <p className="text-gray-600">{selectedLesson?.updatedAt}</p>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
