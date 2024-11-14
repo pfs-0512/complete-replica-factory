@@ -1,8 +1,10 @@
 import { ChevronRight } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
+  const navigate = useNavigate();
   const menuItems = [
-    { label: "レッスン管理", active: true },
+    { label: "レッスン管理", active: true, path: "/" },
     { label: "動画管理", active: false },
     { label: "予約管理", active: false },
     { label: "メディア管理", active: false },
@@ -15,6 +17,12 @@ const Sidebar = () => {
         <a
           key={item.label}
           href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            if (item.path) {
+              navigate(item.path);
+            }
+          }}
           className={`sidebar-link ${
             item.active ? "bg-gray-100" : ""
           }`}
