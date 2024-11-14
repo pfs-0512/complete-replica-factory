@@ -11,6 +11,7 @@ import VideoRegistration from "./pages/VideoRegistration";
 import ReservationManagement from "./pages/ReservationManagement";
 import MediaManagement from "./pages/MediaManagement";
 import MediaRegistration from "./pages/MediaRegistration";
+import AccountManagement from "./pages/AccountManagement";
 
 const queryClient = new QueryClient();
 
@@ -29,6 +30,7 @@ const App = () => (
           <Route path="/reservations" element={<ReservationManagement />} />
           <Route path="/media" element={<MediaManagement />} />
           <Route path="/media/new" element={<MediaRegistration />} />
+          <Route path="/accounts" element={<AccountManagement />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
