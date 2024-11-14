@@ -1,7 +1,13 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Select } from "@/components/ui/select";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import Sidebar from "@/components/Sidebar";
 import LessonTable from "@/components/LessonTable";
 
@@ -30,15 +36,16 @@ const Index = () => {
                 className="w-full"
               />
             </div>
-            <Select
-              value={status}
-              onValueChange={setStatus}
-              className="w-48"
-            >
-              <option value="予約受付中">予約受付中</option>
-              <option value="予約締切">予約締切</option>
-              <option value="終了">終了</option>
-              <option value="非公開">非公開</option>
+            <Select value={status} onValueChange={setStatus}>
+              <SelectTrigger className="w-48">
+                <SelectValue placeholder="ステータス" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="予約受付中">予約受付中</SelectItem>
+                <SelectItem value="予約締切">予約締切</SelectItem>
+                <SelectItem value="終了">終了</SelectItem>
+                <SelectItem value="非公開">非公開</SelectItem>
+              </SelectContent>
             </Select>
             <Button className="bg-gray-900 hover:bg-gray-800 text-white">
               検索
