@@ -1,4 +1,3 @@
-```tsx
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, BookOpen, Pencil } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -16,7 +15,7 @@ const LessonTable = () => {
       tag: "英会話",
       status: "下書き",
       createdAt: "2024/10/28 10:25",
-      updatedAt: "2024/10/31 9:00",
+      updatedAt: "2024/10/31 9:00"
     },
     {
       title: "英語って楽しい！小学生から始める英会話",
@@ -25,8 +24,8 @@ const LessonTable = () => {
       tag: "英会話",
       status: "予約受付中",
       createdAt: "2024/10/28 10:25",
-      updatedAt: "2024/10/31 9:00",
-    },
+      updatedAt: "2024/10/31 9:00"
+    }
   ].concat(Array(6).fill({
     title: "英語って楽しい！小学生から始める英会話",
     category: "子供向け",
@@ -34,7 +33,7 @@ const LessonTable = () => {
     tag: "英会話",
     status: "予約受付中",
     createdAt: "2024/10/28 10:25",
-    updatedAt: "2024/10/31 9:00",
+    updatedAt: "2024/10/31 9:00"
   }));
 
   const getStatusStyle = (status: string) => {
@@ -147,4 +146,3 @@ const LessonTable = () => {
 };
 
 export default LessonTable;
-```
