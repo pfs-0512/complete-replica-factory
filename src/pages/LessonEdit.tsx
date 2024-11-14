@@ -3,11 +3,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import Sidebar from "@/components/Sidebar";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useToast } from "@/components/ui/use-toast";
 
 const LessonEdit = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const { toast } = useToast();
 
   // この部分は実際のAPIと連携する際にuseQueryなどで置き換えることを想定
@@ -28,9 +29,10 @@ const LessonEdit = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
-      title: "レッスンを更新しました",
-      description: "レッスンの内容が正常に更新されました。",
+      title: "レッスンを保存しました",
+      description: "レッスンの内容が正常に保存されました。",
     });
+    navigate("/");
   };
 
   const handlePublish = () => {
@@ -38,6 +40,7 @@ const LessonEdit = () => {
       title: "レッスンを公開しました",
       description: "レッスンが公開されました。",
     });
+    navigate("/");
   };
 
   return (
@@ -48,7 +51,7 @@ const LessonEdit = () => {
           <div className="flex justify-between items-center">
             <h1 className="text-3xl font-bold text-gray-900">レッスン編集</h1>
             <div className="space-x-4">
-              <Button variant="outline">下書き保存</Button>
+              <Button variant="outline" onClick={handleSubmit}>下書き保存</Button>
               {mockLesson.status === "下書き" && (
                 <Button onClick={handlePublish}>公開</Button>
               )}
