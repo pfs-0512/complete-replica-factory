@@ -22,6 +22,9 @@ import { Pencil, Trash2, UserPlus } from "lucide-react";
 const AccountManagement = () => {
   const { toast } = useToast();
   
+  // ログインユーザーのID（実際の実装では認証システムから取得）
+  const currentUserId = 1;
+  
   // この部分は実際のAPIと連携する際にuseQueryなどで置き換えることを想定
   const mockUsers = [
     {
@@ -51,6 +54,16 @@ const AccountManagement = () => {
   ];
 
   const handleStatusChange = (userId: number, newStatus: string) => {
+    // 自分自身のステータスは変更できない
+    if (userId === currentUserId) {
+      toast({
+        title: "エラー",
+        description: "自分自身のステータスは変更できません。",
+        variant: "destructive",
+      });
+      return;
+    }
+
     toast({
       title: "ステータスを更新しました",
       description: `ユーザーID: ${userId} のステータスを ${newStatus} に変更しました。`,
@@ -58,6 +71,16 @@ const AccountManagement = () => {
   };
 
   const handleDelete = (userId: number) => {
+    // 自分自身は削除できない
+    if (userId === currentUserId) {
+      toast({
+        title: "エラー",
+        description: "自分自身を削除することはできません。",
+        variant: "destructive",
+      });
+      return;
+    }
+
     toast({
       title: "ユーザーを削除しました",
       description: `ユーザーID: ${userId} を削除しました。`,
@@ -127,6 +150,7 @@ const AccountManagement = () => {
                             value === "active" ? "有効" : "停止中"
                           )
                         }
+                        disabled={user.id === currentUserId}
                       >
                         <SelectTrigger className="w-24">
                           <SelectValue />
@@ -152,6 +176,7 @@ const AccountManagement = () => {
                           size="sm"
                           className="h-8 w-8 p-0 text-red-500 hover:text-red-500"
                           onClick={() => handleDelete(user.id)}
+                          disabled={user.id === currentUserId}
                         >
                           <Trash2 className="h-4 w-4" />
                         </Button>
