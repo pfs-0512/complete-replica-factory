@@ -8,6 +8,7 @@ import LessonRegistration from "./pages/LessonRegistration";
 import VideoManagement from "./pages/VideoManagement";
 import VideoRegistration from "./pages/VideoRegistration";
 import ReservationManagement from "./pages/ReservationManagement";
+import MediaManagement from "./pages/MediaManagement";
 
 const queryClient = new QueryClient();
 
@@ -23,6 +24,7 @@ const App = () => (
           <Route path="/videos" element={<VideoManagement />} />
           <Route path="/videos/new" element={<VideoRegistration />} />
           <Route path="/reservations" element={<ReservationManagement />} />
+          <Route path="/media" element={<MediaManagement />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>

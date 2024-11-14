@@ -9,7 +9,7 @@ const Sidebar = () => {
     { label: "レッスン管理", path: "/" },
     { label: "動画管理", path: "/videos" },
     { label: "予約管理", path: "/reservations" },
-    { label: "メディア管理", path: null },
+    { label: "メディア管理", path: "/media" },
     { label: "アカウント管理", path: null },
   ];
 
