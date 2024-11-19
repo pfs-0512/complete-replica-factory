@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import LessonDetailModal from "./LessonDetailModal";
 import LessonTableHeader from "./lesson/LessonTableHeader";
 import LessonTableRow from "./lesson/LessonTableRow";
@@ -9,6 +9,7 @@ const LessonTable = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [selectedLesson, setSelectedLesson] = useState<any>(null);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const lessons = [
     {
@@ -137,6 +138,22 @@ const LessonTable = () => {
     navigate(`/lessons/edit/${index}`);
   };
 
+  // Get the category from URL search params
+  const searchParams = new URLSearchParams(location.search);
+  const categoryParam = searchParams.get('category');
+
+  // Map category paths to labels
+  const categoryMap: Record<string, string> = {
+    'children': '子ども向け',
+    'parent-child': '親子向け',
+    'parents': '親御さん向け'
+  };
+
+  // Filter lessons based on category
+  const filteredLessons = categoryParam
+    ? lessons.filter(lesson => lesson.category === categoryMap[categoryParam])
+    : lessons;
+
   return (
     <div className="bg-white rounded-lg">
       <div className="w-full overflow-x-auto">
@@ -144,7 +161,7 @@ const LessonTable = () => {
           <table className="w-full divide-y divide-gray-200">
             <LessonTableHeader />
             <tbody className="divide-y divide-gray-200 bg-white">
-              {lessons.map((lesson, index) => (
+              {filteredLessons.map((lesson, index) => (
                 <LessonTableRow
                   key={index}
                   lesson={lesson}
