@@ -82,6 +82,10 @@ const LessonDetailModal = ({ lesson, open, onOpenChange }: LessonDetailModalProp
             <p>{lesson.capacity || "未設定"}</p>
           </div>
           <div>
+            <h3 className="font-medium text-gray-700 mb-1">キャンセル期限</h3>
+            <p>{lesson.cancellationDeadline || "未設定"}</p>
+          </div>
+          <div>
             <h3 className="font-medium text-gray-700 mb-1">カテゴリ</h3>
             <span className="px-2 py-1 bg-purple-50 text-purple-700 rounded-full text-sm">
               {lesson.category}

@@ -45,9 +45,20 @@ const LessonRegistration = () => {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">募集人数</label>
-                <Input type="number" min="1" className="w-32" />
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">募集人数</label>
+                  <Input type="number" min="1" />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">キャンセル期限（時間）</label>
+                  <Input 
+                    type="number" 
+                    min="0" 
+                    max="72"
+                    placeholder="例: 24（開催24時間前まで）" 
+                  />
+                </div>
               </div>
 
               <div>
