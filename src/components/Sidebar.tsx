@@ -1,20 +1,9 @@
-import { ChevronRight, ChevronDown } from "lucide-react";
+import { ChevronRight } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useState } from "react";
 
 const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({
-    videos: false
-  });
-
-  const toggleMenu = (menu: string) => {
-    setExpandedMenus(prev => ({
-      ...prev,
-      [menu]: !prev[menu]
-    }));
-  };
 
   const categories = [
     { label: "子ども向け", path: "children" },
@@ -61,37 +50,35 @@ const Sidebar = () => {
 
       {/* 動画管理 */}
       <div>
-        <button
-          onClick={() => toggleMenu('videos')}
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/videos");
+          }}
           className="w-full sidebar-link text-left"
         >
           <span className="flex-1 truncate">動画管理</span>
-          {expandedMenus.videos ? (
-            <ChevronDown className="w-4 h-4 text-gray-400 flex-shrink-0" />
-          ) : (
-            <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
-          )}
-        </button>
-        {expandedMenus.videos && (
-          <div className="pl-4">
-            {categories.map((category) => (
-              <a
-                key={`video-${category.path}`}
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate(`/videos?category=${category.path}`);
-                }}
-                className={`sidebar-link ${
-                  location.pathname === '/videos' && location.search === `?category=${category.path}` ? "bg-gray-100" : ""
-                }`}
-              >
-                <span className="flex-1 truncate">{category.label}</span>
-                <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
-              </a>
-            ))}
-          </div>
-        )}
+          <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
+        </a>
+        <div className="pl-4">
+          {categories.map((category) => (
+            <a
+              key={`video-${category.path}`}
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(`/videos?category=${category.path}`);
+              }}
+              className={`sidebar-link ${
+                location.pathname === '/videos' && location.search === `?category=${category.path}` ? "bg-gray-100" : ""
+              }`}
+            >
+              <span className="flex-1 truncate">{category.label}</span>
+              <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
+            </a>
+          ))}
+        </div>
       </div>
 
       {/* 予約管理 */}
