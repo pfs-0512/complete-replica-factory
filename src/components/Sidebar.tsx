@@ -31,7 +31,7 @@ const Sidebar = () => {
       <div>
         <button
           onClick={() => toggleMenu('lessons')}
-          className="w-full sidebar-link"
+          className="w-full sidebar-link text-left"
         >
           <span className="flex-1 truncate">レッスン一覧</span>
           {expandedMenus.lessons ? (
@@ -66,7 +66,7 @@ const Sidebar = () => {
       <div>
         <button
           onClick={() => toggleMenu('videos')}
-          className="w-full sidebar-link"
+          className="w-full sidebar-link text-left"
         >
           <span className="flex-1 truncate">動画管理</span>
           {expandedMenus.videos ? (
@@ -107,6 +107,32 @@ const Sidebar = () => {
         className={`sidebar-link ${isActive("/reservations") ? "bg-gray-100" : ""}`}
       >
         <span className="flex-1 truncate">予約管理</span>
+        <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
+      </a>
+
+      {/* メディア管理 */}
+      <a
+        href="#"
+        onClick={(e) => {
+          e.preventDefault();
+          navigate("/media");
+        }}
+        className={`sidebar-link ${isActive("/media") ? "bg-gray-100" : ""}`}
+      >
+        <span className="flex-1 truncate">メディア管理</span>
+        <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
+      </a>
+
+      {/* マイプロフィール */}
+      <a
+        href="#"
+        onClick={(e) => {
+          e.preventDefault();
+          navigate("/profile");
+        }}
+        className={`sidebar-link ${isActive("/profile") ? "bg-gray-100" : ""}`}
+      >
+        <span className="flex-1 truncate">マイプロフィール</span>
         <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
       </a>
     </aside>
