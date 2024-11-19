@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import {
   Select,
   SelectContent,
@@ -9,6 +8,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Search } from "lucide-react";
+import { Button } from "@/components/ui/button";
 import Sidebar from "@/components/Sidebar";
 
 const ReservationManagement = () => {
@@ -36,9 +36,6 @@ const ReservationManagement = () => {
       <div className="flex-1 p-8">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-2xl font-semibold">予約一覧</h1>
-          <Button variant="default" onClick={() => window.location.href = "/videos/new"}>
-            動画登録
-          </Button>
         </div>
 
         <div className="flex gap-4 mb-6">
