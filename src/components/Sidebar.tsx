@@ -1,124 +1,105 @@
 import { ChevronRight } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
+// Separate the categories into a constant
+const CATEGORIES = [
+  { label: "子ども向け", path: "children" },
+  { label: "親子向け", path: "parent-child" },
+  { label: "親御さん向け", path: "parents" }
+];
+
+// Create a reusable menu item component
+const MenuItem = ({ icon, label, children, isOpen = false }: { 
+  icon?: React.ReactNode, 
+  label: string, 
+  children?: React.ReactNode,
+  isOpen?: boolean 
+}) => (
+  <div className="mb-4">
+    <div className="flex items-center px-4 py-2 text-gray-700 font-medium">
+      {icon && <span className="mr-2">{icon}</span>}
+      <span className="flex-1">{label}</span>
+    </div>
+    {(isOpen || children) && (
+      <div className="ml-4 border-l border-gray-200">
+        {children}
+      </div>
+    )}
+  </div>
+);
+
 const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  const categories = [
-    { label: "子ども向け", path: "children" },
-    { label: "親子向け", path: "parent-child" },
-    { label: "親御さん向け", path: "parents" }
-  ];
+  const handleNavigation = (path: string, category?: string) => {
+    navigate(category ? `${path}?category=${category}` : path);
+  };
 
-  const isActive = (path: string) => location.pathname === path;
+  const isActive = (path: string, category?: string) => {
+    if (category) {
+      return location.pathname === path && location.search === `?category=${category}`;
+    }
+    return location.pathname === path;
+  };
+
+  const MenuLink = ({ path, label, category }: { path: string, label: string, category?: string }) => (
+    <a
+      href="#"
+      onClick={(e) => {
+        e.preventDefault();
+        handleNavigation(path, category);
+      }}
+      className={`block px-4 py-2 text-sm hover:bg-gray-50 transition-colors ${
+        isActive(path, category) ? "text-blue-600 bg-gray-50" : "text-gray-600"
+      }`}
+    >
+      {label}
+    </a>
+  );
 
   return (
-    <aside className="w-56 border-r bg-white">
+    <aside className="w-64 bg-white border-r min-h-screen">
       {/* レッスン一覧 */}
-      <div>
-        <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate("/");
-          }}
-          className="w-full sidebar-link text-left"
-        >
-          <span className="flex-1 truncate">レッスン一覧</span>
-          <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
-        </a>
-        <div className="pl-4">
-          {categories.map((category) => (
-            <a
-              key={`lesson-${category.path}`}
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate(`/?category=${category.path}`);
-              }}
-              className={`sidebar-link ${
-                location.search === `?category=${category.path}` ? "bg-gray-100" : ""
-              }`}
-            >
-              <span className="flex-1 truncate">{category.label}</span>
-              <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
-            </a>
-          ))}
-        </div>
-      </div>
+      <MenuItem label="レッスン一覧">
+        <MenuLink path="/" label="すべて" />
+        {CATEGORIES.map((category) => (
+          <MenuLink
+            key={`lesson-${category.path}`}
+            path="/"
+            label={category.label}
+            category={category.path}
+          />
+        ))}
+      </MenuItem>
 
       {/* 動画管理 */}
-      <div>
-        <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate("/videos");
-          }}
-          className="w-full sidebar-link text-left"
-        >
-          <span className="flex-1 truncate">動画管理</span>
-          <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
-        </a>
-        <div className="pl-4">
-          {categories.map((category) => (
-            <a
-              key={`video-${category.path}`}
-              href="#"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate(`/videos?category=${category.path}`);
-              }}
-              className={`sidebar-link ${
-                location.pathname === '/videos' && location.search === `?category=${category.path}` ? "bg-gray-100" : ""
-              }`}
-            >
-              <span className="flex-1 truncate">{category.label}</span>
-              <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
-            </a>
-          ))}
-        </div>
-      </div>
+      <MenuItem label="動画管理" isOpen={true}>
+        <MenuLink path="/videos" label="すべて" />
+        {CATEGORIES.map((category) => (
+          <MenuLink
+            key={`video-${category.path}`}
+            path="/videos"
+            label={category.label}
+            category={category.path}
+          />
+        ))}
+      </MenuItem>
 
       {/* 予約管理 */}
-      <a
-        href="#"
-        onClick={(e) => {
-          e.preventDefault();
-          navigate("/reservations");
-        }}
-        className={`sidebar-link ${isActive("/reservations") ? "bg-gray-100" : ""}`}
-      >
-        <span className="flex-1 truncate">予約管理</span>
-        <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
-      </a>
+      <MenuItem label="予約管理">
+        <MenuLink path="/reservations" label="予約一覧" />
+      </MenuItem>
 
       {/* メディア管理 */}
-      <a
-        href="#"
-        onClick={(e) => {
-          e.preventDefault();
-          navigate("/media");
-        }}
-        className={`sidebar-link ${isActive("/media") ? "bg-gray-100" : ""}`}
-      >
-        <span className="flex-1 truncate">メディア管理</span>
-        <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
-      </a>
+      <MenuItem label="メディア管理">
+        <MenuLink path="/media" label="メディア一覧" />
+      </MenuItem>
 
       {/* マイプロフィール */}
-      <a
-        href="#"
-        onClick={(e) => {
-          e.preventDefault();
-          navigate("/profile");
-        }}
-        className={`sidebar-link ${isActive("/profile") ? "bg-gray-100" : ""}`}
-      >
-        <span className="flex-1 truncate">マイプロフィール</span>
-        <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
-      </a>
+      <MenuItem label="マイプロフィール">
+        <MenuLink path="/profile" label="プロフィール設定" />
+      </MenuItem>
     </aside>
   );
 };
