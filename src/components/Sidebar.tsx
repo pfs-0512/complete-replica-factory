@@ -1,15 +1,66 @@
-import { useLocation } from "react-router-dom";
-import MenuItem from "./sidebar/MenuItem";
-import MenuLink from "./sidebar/MenuLink";
+import { useNavigate, useLocation } from "react-router-dom";
 
+// Separate the categories into a constant
 const CATEGORIES = [
   { label: "子ども向け", path: "children" },
   { label: "親子向け", path: "parent-child" },
   { label: "親御さん向け", path: "parents" }
 ];
 
+// Create a reusable menu item component
+const MenuItem = ({ 
+  icon, 
+  label, 
+  children, 
+  isExpandable = true 
+}: { 
+  icon?: React.ReactNode, 
+  label: string, 
+  children?: React.ReactNode,
+  isExpandable?: boolean
+}) => (
+  <div className="mb-4">
+    <div className="flex items-center px-4 py-2 text-gray-700 font-medium">
+      {icon && <span className="mr-2">{icon}</span>}
+      <span className="flex-1">{label}</span>
+    </div>
+    {isExpandable && children && (
+      <div className="ml-4 border-l border-gray-200">
+        {children}
+      </div>
+    )}
+  </div>
+);
+
 const Sidebar = () => {
+  const navigate = useNavigate();
   const location = useLocation();
+
+  const handleNavigation = (path: string, category?: string) => {
+    navigate(category ? `${path}?category=${category}` : path);
+  };
+
+  const isActive = (path: string, category?: string) => {
+    if (category) {
+      return location.pathname === path && location.search === `?category=${category}`;
+    }
+    return location.pathname === path;
+  };
+
+  const MenuLink = ({ path, label, category }: { path: string, label: string, category?: string }) => (
+    <a
+      href="#"
+      onClick={(e) => {
+        e.preventDefault();
+        handleNavigation(path, category);
+      }}
+      className={`block px-4 py-2 text-sm hover:bg-gray-50 transition-colors ${
+        isActive(path, category) ? "text-blue-600 bg-gray-50" : "text-gray-600"
+      }`}
+    >
+      {label}
+    </a>
+  );
 
   // Determine if the current path should show expandable menu
   const shouldShowExpandableMenu = (path: string) => {
