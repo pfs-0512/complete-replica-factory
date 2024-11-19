@@ -35,6 +35,8 @@ const VideoManagement = () => {
       url: "https://example.com/video1",
       description: "プログラミング講座のメイン画像です。",
       category: "子ども向け",
+      channel: "Kids English Channel",
+      tag: "英語",
       createdAt: "2024-02-20",
       updatedAt: "2024-10-31",
       status: "公開中"
@@ -46,6 +48,8 @@ const VideoManagement = () => {
       url: "https://example.com/video2",
       description: "オンライン授業の様子を撮影した画像です。",
       category: "親子向け",
+      channel: "Family Programming",
+      tag: "プログラミング",
       createdAt: "2024-02-19",
       updatedAt: "2024-10-31",
       status: "下書き"
@@ -57,6 +61,8 @@ const VideoManagement = () => {
       url: "https://example.com/video3",
       description: "開発環境のセットアップ画面です。",
       category: "親御さん向け",
+      channel: "Parenting Support",
+      tag: "子育て",
       createdAt: "2024-02-18",
       updatedAt: "2024-10-31",
       status: "非公開"
