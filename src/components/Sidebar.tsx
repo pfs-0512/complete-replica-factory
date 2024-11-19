@@ -6,7 +6,6 @@ const Sidebar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const [expandedMenus, setExpandedMenus] = useState<Record<string, boolean>>({
-    lessons: true,
     videos: false
   });
 
@@ -29,37 +28,35 @@ const Sidebar = () => {
     <aside className="w-56 border-r bg-white">
       {/* レッスン一覧 */}
       <div>
-        <button
-          onClick={() => toggleMenu('lessons')}
+        <a
+          href="#"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/");
+          }}
           className="w-full sidebar-link text-left"
         >
           <span className="flex-1 truncate">レッスン一覧</span>
-          {expandedMenus.lessons ? (
-            <ChevronDown className="w-4 h-4 text-gray-400 flex-shrink-0" />
-          ) : (
-            <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
-          )}
-        </button>
-        {expandedMenus.lessons && (
-          <div className="pl-4">
-            {categories.map((category) => (
-              <a
-                key={`lesson-${category.path}`}
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate(`/?category=${category.path}`);
-                }}
-                className={`sidebar-link ${
-                  location.search === `?category=${category.path}` ? "bg-gray-100" : ""
-                }`}
-              >
-                <span className="flex-1 truncate">{category.label}</span>
-                <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
-              </a>
-            ))}
-          </div>
-        )}
+          <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
+        </a>
+        <div className="pl-4">
+          {categories.map((category) => (
+            <a
+              key={`lesson-${category.path}`}
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate(`/?category=${category.path}`);
+              }}
+              className={`sidebar-link ${
+                location.search === `?category=${category.path}` ? "bg-gray-100" : ""
+              }`}
+            >
+              <span className="flex-1 truncate">{category.label}</span>
+              <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
+            </a>
+          ))}
+        </div>
       </div>
 
       {/* 動画管理 */}
