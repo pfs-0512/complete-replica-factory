@@ -4,6 +4,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import LessonReservationList from "./lesson/LessonReservationList";
 
 interface LessonDetailModalProps {
   lesson: any;
@@ -29,9 +30,23 @@ const LessonDetailModal = ({ lesson, open, onOpenChange }: LessonDetailModalProp
 
   if (!lesson) return null;
 
+  // モックデータ - 実際の実装では、このデータはpropsまたはAPIから取得します
+  const mockReservations = [
+    {
+      userName: "田中太郎",
+      email: "tanaka@example.com",
+      reservationDateTime: "2024/03/15 14:30",
+    },
+    {
+      userName: "山田花子",
+      email: "yamada@example.com",
+      reservationDateTime: "2024/03/15 15:00",
+    },
+  ];
+
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-w-2xl">
+      <DialogContent className="max-w-2xl max-h-[90vh] overflow-y-auto">
         <DialogHeader>
           <DialogTitle className="text-xl font-bold">{lesson.title}</DialogTitle>
         </DialogHeader>
@@ -91,6 +106,10 @@ const LessonDetailModal = ({ lesson, open, onOpenChange }: LessonDetailModalProp
           <div>
             <h3 className="font-medium text-gray-700 mb-1">レッスン概要</h3>
             <p className="whitespace-pre-wrap">{lesson.description || "未設定"}</p>
+          </div>
+          <div>
+            <h3 className="font-medium text-gray-700 mb-1">予約者一覧</h3>
+            <LessonReservationList reservations={mockReservations} />
           </div>
           <div>
             <h3 className="font-medium text-gray-700 mb-1">作成日時</h3>
