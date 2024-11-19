@@ -31,29 +31,35 @@ const VideoManagement = () => {
     {
       id: 1,
       title: "英語って楽しい！小学生から始める英会話",
-      type: "image",
-      url: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
-      description: "プログラミング講座のメイン画像です。",
+      type: "video",
+      url: "https://example.com/video1",
+      description: "プログラミング講座のメイン動画です。",
       category: "子ども向け",
+      status: "公開中",
       createdAt: "2024-02-20",
+      updatedAt: "2024-02-20"
     },
     {
       id: 2,
       title: "親子で楽しむプログラミング入門",
-      type: "image",
-      url: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
-      description: "オンライン授業の様子を撮影した画像です。",
+      type: "video",
+      url: "https://example.com/video2",
+      description: "オンライン授業の様子を撮影した動画です。",
       category: "親子向け",
+      status: "非公開",
       createdAt: "2024-02-19",
+      updatedAt: "2024-02-19"
     },
     {
       id: 3,
       title: "子育ての悩み相談会",
-      type: "image",
-      url: "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
-      description: "開発環境のセットアップ画面です。",
+      type: "video",
+      url: "https://example.com/video3",
+      description: "開発環境のセットアップ動画です。",
       category: "親御さん向け",
+      status: "下書き",
       createdAt: "2024-02-18",
+      updatedAt: "2024-02-18"
     },
   ];
 
@@ -64,16 +70,26 @@ const VideoManagement = () => {
 
   const handleDelete = (id: number) => {
     toast({
-      title: "メディアを削除しました",
-      description: `ID: ${id} のメディアを削除しました。`,
+      title: "動画を削除しました",
+      description: `ID: ${id} の動画を削除しました。`,
     });
   };
 
-  const handleRowClick = (e: React.MouseEvent, video: any) => {
-    if ((e.target as HTMLElement).closest('button')) {
-      return;
-    }
+  const handleRowClick = (video: any) => {
     setSelectedVideo(video);
+  };
+
+  const getStatusStyle = (status: string) => {
+    switch (status) {
+      case "公開中":
+        return "bg-green-50 text-green-700";
+      case "非公開":
+        return "bg-gray-50 text-gray-700";
+      case "下書き":
+        return "bg-yellow-50 text-yellow-700";
+      default:
+        return "bg-gray-50 text-gray-700";
+    }
   };
 
   return (
@@ -103,7 +119,6 @@ const VideoManagement = () => {
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">すべて</SelectItem>
-                  <SelectItem value="image">画像</SelectItem>
                   <SelectItem value="video">動画</SelectItem>
                 </SelectContent>
               </Select>
@@ -111,46 +126,67 @@ const VideoManagement = () => {
             <Button>検索</Button>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filteredVideos.map((video) => (
-              <div
-                key={video.id}
-                className="cursor-pointer"
-                onClick={(e) => handleRowClick(e, video)}
-              >
-                <div className="relative aspect-video group">
-                  <img
-                    src={video.url}
-                    alt={video.title}
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                  <div className="absolute inset-0 bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center gap-2 rounded-lg">
-                    <Button
-                      variant="secondary"
-                      size="sm"
-                      className="h-8 w-8 p-0"
-                      onClick={() => navigate(`/videos/edit/${video.id}`)}
-                    >
-                      <Pencil className="h-4 w-4" />
-                    </Button>
-                    <Button
-                      variant="destructive"
-                      size="sm"
-                      className="h-8 w-8 p-0"
-                      onClick={() => handleDelete(video.id)}
-                    >
-                      <Trash2 className="h-4 w-4" />
-                    </Button>
-                  </div>
-                </div>
-                <div className="mt-2">
-                  <h3 className="font-medium truncate">{video.title}</h3>
-                  <p className="text-sm text-gray-500">{video.category}</p>
-                  <p className="text-sm text-gray-400">{video.createdAt}</p>
-                </div>
-              </div>
-            ))}
-          </div>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead>タイトル</TableHead>
+                <TableHead>カテゴリー</TableHead>
+                <TableHead>ステータス</TableHead>
+                <TableHead>作成日</TableHead>
+                <TableHead>更新日</TableHead>
+                <TableHead>アクション</TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {filteredVideos.map((video) => (
+                <TableRow
+                  key={video.id}
+                  className="cursor-pointer hover:bg-gray-50"
+                  onClick={() => handleRowClick(video)}
+                >
+                  <TableCell>{video.title}</TableCell>
+                  <TableCell>
+                    <span className="px-2 py-1 bg-purple-50 text-purple-700 rounded-full text-xs font-medium">
+                      {video.category}
+                    </span>
+                  </TableCell>
+                  <TableCell>
+                    <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusStyle(video.status)}`}>
+                      {video.status}
+                    </span>
+                  </TableCell>
+                  <TableCell>{video.createdAt}</TableCell>
+                  <TableCell>{video.updatedAt}</TableCell>
+                  <TableCell>
+                    <div className="flex gap-2">
+                      <Button
+                        variant="outline"
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/videos/edit/${video.id}`);
+                        }}
+                      >
+                        <Pencil className="w-4 h-4 mr-1" />
+                        編集
+                      </Button>
+                      <Button
+                        variant="destructive"
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          handleDelete(video.id);
+                        }}
+                      >
+                        <Trash2 className="w-4 h-4 mr-1" />
+                        削除
+                      </Button>
+                    </div>
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
         </div>
       </div>
 
