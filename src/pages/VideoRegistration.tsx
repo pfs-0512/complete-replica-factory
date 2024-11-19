@@ -3,23 +3,43 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Progress } from "@/components/ui/progress";
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from "@/components/ui/form";
 import Sidebar from "@/components/Sidebar";
 import VideoPreview from "@/components/VideoPreview";
 import { useState } from "react";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { zodResolver } from "@hookform/resolvers/zod";
+
+const formSchema = z.object({
+  videoUrl: z.string().url("有効なURLを入力してください").optional(),
+});
 
 const VideoRegistration = () => {
-  const [videoUrl, setVideoUrl] = useState("");
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [uploadProgress, setUploadProgress] = useState(0);
   const { toast } = useToast();
   const navigate = useNavigate();
 
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      videoUrl: "",
+    },
+  });
+
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
-      // Check if the file is a video file
       if (!file.type.startsWith('video/')) {
         toast({
           title: "エラー",
@@ -29,13 +49,11 @@ const VideoRegistration = () => {
         return;
       }
       setVideoFile(file);
-      // Reset progress when new file is selected
       setUploadProgress(0);
     }
   };
 
   const handleDraftSave = () => {
-    // Here you would implement the actual draft save logic
     toast({
       title: "下書き保存しました",
       description: "動画を下書き保存しました。",
@@ -44,7 +62,6 @@ const VideoRegistration = () => {
   };
 
   const handlePublish = () => {
-    // Here you would implement the actual publish logic
     toast({
       title: "公開しました",
       description: "動画を公開しました。",
@@ -65,48 +82,57 @@ const VideoRegistration = () => {
             </div>
           </div>
 
-          <div className="space-y-6">
-            <div>
-              <label className="block text-sm mb-2">動画タイトル</label>
-              <Input type="text" />
-            </div>
-
-            <div>
-              <label className="block text-sm mb-2">動画ファイル</label>
-              <div className="space-y-4">
-                <Input
-                  type="file"
-                  accept="video/*"
-                  onChange={handleFileChange}
-                  className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
-                />
-                {videoFile && (
-                  <div className="space-y-2">
-                    <p className="text-sm text-muted-foreground">
-                      選択されたファイル: {videoFile.name}
-                    </p>
-                    <Progress value={uploadProgress} className="w-full" />
-                  </div>
-                )}
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm mb-2">動画URL（YouTube）</label>
-              <Input 
-                type="url" 
-                value={videoUrl}
-                onChange={(e) => setVideoUrl(e.target.value)}
-                placeholder="YouTubeのURLを入力（任意）"
-              />
-            </div>
-
-            {videoUrl && (
+          <Form {...form}>
+            <div className="space-y-6">
               <div>
-                <label className="block text-sm mb-2">プレビュー</label>
-                <VideoPreview url={videoUrl} />
+                <label className="block text-sm mb-2">動画タイトル</label>
+                <Input type="text" />
               </div>
-            )}
+
+              <div>
+                <label className="block text-sm mb-2">動画ファイル</label>
+                <div className="space-y-4">
+                  <Input
+                    type="file"
+                    accept="video/*"
+                    onChange={handleFileChange}
+                    className="file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-primary file:text-primary-foreground hover:file:bg-primary/90"
+                  />
+                  {videoFile && (
+                    <div className="space-y-2">
+                      <p className="text-sm text-muted-foreground">
+                        選択されたファイル: {videoFile.name}
+                      </p>
+                      <Progress value={uploadProgress} className="w-full" />
+                    </div>
+                  )}
+                </div>
+              </div>
+
+              <FormField
+                control={form.control}
+                name="videoUrl"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>動画URL（YouTube）</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="url" 
+                        placeholder="YouTubeのURLを入力（任意）"
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {form.watch("videoUrl") && (
+                <div>
+                  <label className="block text-sm mb-2">プレビュー</label>
+                  <VideoPreview url={form.watch("videoUrl")} />
+                </div>
+              )}
 
             <div>
               <label className="block text-sm mb-2">サムネイル</label>
@@ -171,6 +197,8 @@ const VideoRegistration = () => {
               <Textarea className="min-h-[200px]" />
             </div>
           </div>
+            </div>
+          </Form>
         </div>
       </div>
     </div>
