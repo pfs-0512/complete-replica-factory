@@ -30,7 +30,6 @@ const LessonDetailModal = ({ lesson, open, onOpenChange }: LessonDetailModalProp
 
   if (!lesson) return null;
 
-  // モックデータ - 実際の実装では、このデータはpropsまたはAPIから取得します
   const mockReservations = [
     {
       userName: "田中太郎",
@@ -83,7 +82,7 @@ const LessonDetailModal = ({ lesson, open, onOpenChange }: LessonDetailModalProp
           </div>
           <div>
             <h3 className="font-medium text-gray-700 mb-1">キャンセル期限</h3>
-            <p>{lesson.cancellationDeadline || "未設定"}</p>
+            <p>{lesson.cancellationDeadline ? `${lesson.cancellationDeadline}` : "未設定"}</p>
           </div>
           <div>
             <h3 className="font-medium text-gray-700 mb-1">カテゴリ</h3>
