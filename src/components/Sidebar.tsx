@@ -1,4 +1,4 @@
-import { ChevronRight, CircleDot, Store, CreditCard, User, HelpCircle } from "lucide-react";
+import { ChevronRight, CircleDot, Store, User, HelpCircle } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
 const SidebarLink = ({ href, onClick, isActive, children }: {
@@ -104,20 +104,6 @@ const Sidebar = () => {
         >
           <Store className="w-5 h-5 text-gray-500 mr-3" />
           <span className="flex-1 truncate">予約管理</span>
-          <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
-        </SidebarLink>
-
-        {/* メディア管理 */}
-        <SidebarLink
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate("/media");
-          }}
-          isActive={isActive("/media")}
-        >
-          <CreditCard className="w-5 h-5 text-gray-500 mr-3" />
-          <span className="flex-1 truncate">メディア管理</span>
           <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
         </SidebarLink>
 
