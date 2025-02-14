@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -12,11 +13,57 @@ import { Search, Plus } from "lucide-react";
 import Sidebar from "@/components/Sidebar";
 import LessonTable from "@/components/LessonTable";
 import { useNavigate } from "react-router-dom";
+import { useToast } from "@/components/ui/use-toast";
 
 const Index = () => {
   const [searchKeyword, setSearchKeyword] = useState("");
   const [status, setStatus] = useState("予約受付中");
   const navigate = useNavigate();
+  const { toast } = useToast();
+
+  // モックデータ
+  const mockLessons = [
+    {
+      id: 1,
+      title: "プログラミング入門",
+      date: "2024/03/20",
+      startTime: "14:00",
+      endTime: "15:30",
+      capacity: 10,
+      reservationCount: 5,
+      status: "予約受付中",
+      category: "子ども向け",
+      cancellationDeadline: "2024/03/19 17:00",
+      channel: "プログラミング",
+      tag: "初心者向け",
+      createdAt: "2024/03/01 10:00",
+      updatedAt: "2024/03/01 10:00",
+    },
+    {
+      id: 2,
+      title: "親子で楽しむダンス",
+      date: "2024/03/22",
+      startTime: "10:00",
+      endTime: "11:30",
+      capacity: 15,
+      reservationCount: 12,
+      status: "予約締切",
+      category: "親子向け",
+      cancellationDeadline: "2024/03/21 12:00",
+      channel: "ダンス",
+      tag: "親子参加",
+      createdAt: "2024/03/02 11:00",
+      updatedAt: "2024/03/02 11:00",
+    },
+  ];
+
+  const handleSearch = () => {
+    // 検索処理の実装（現在はモックデータを使用）
+    toast({
+      title: "検索実行",
+      description: `キーワード: ${searchKeyword}, ステータス: ${status}`,
+    });
+  };
 
   return (
     <div className="flex min-h-screen bg-gray-50">
@@ -56,13 +103,16 @@ const Index = () => {
                   <SelectItem value="非公開">非公開</SelectItem>
                 </SelectContent>
               </Select>
-              <Button className="bg-gray-900 hover:bg-gray-800 text-white gap-2">
+              <Button 
+                className="bg-gray-900 hover:bg-gray-800 text-white gap-2"
+                onClick={handleSearch}
+              >
                 <Search className="w-4 h-4" />
                 検索
               </Button>
             </div>
 
-            <LessonTable />
+            <LessonTable lessons={mockLessons} />
           </div>
         </div>
       </main>
