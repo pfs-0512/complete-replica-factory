@@ -34,18 +34,20 @@ const ProfileEdit = () => {
       <Sidebar />
       <main className="flex-1 p-8">
         <div className="w-full max-w-3xl">
-          <h1 className="text-2xl font-semibold mb-8">プロフィール編集</h1>
+          <h1 className="text-2xl font-semibold mb-8 text-left">プロフィール編集</h1>
           
           <form onSubmit={handleSubmit} className="space-y-8">
             <div className="bg-white rounded-lg p-8 space-y-8">
               <div className="space-y-6">
                 <div>
-                  <Label className="block text-base mb-4 font-medium">
-                    カバー写真
-                    <span className="text-xs text-gray-500 ml-2">
-                      (PNG, JPG, GIF - 推奨サイズ: 1600px × 375px)
-                    </span>
-                  </Label>
+                  <div className="text-left">
+                    <Label className="text-base mb-4 font-medium inline-block">
+                      カバー写真
+                      <span className="text-xs text-gray-500 ml-2">
+                        (PNG, JPG, GIF - 推奨サイズ: 1600px × 375px)
+                      </span>
+                    </Label>
+                  </div>
                   <div className="aspect-[3/1] rounded-lg bg-[#f8f9fa] border-2 border-dashed border-gray-200 overflow-hidden mb-2">
                     {profile.coverImage ? (
                       <img
@@ -81,12 +83,14 @@ const ProfileEdit = () => {
                 </div>
 
                 <div>
-                  <Label className="block text-base mb-4 font-medium">
-                    プロフィール画像
-                    <span className="text-xs text-gray-500 ml-2">
-                      (PNG, JPG, GIF - 推奨サイズ: 400px × 400px)
-                    </span>
-                  </Label>
+                  <div className="text-left">
+                    <Label className="text-base mb-4 font-medium inline-block">
+                      プロフィール画像
+                      <span className="text-xs text-gray-500 ml-2">
+                        (PNG, JPG, GIF - 推奨サイズ: 400px × 400px)
+                      </span>
+                    </Label>
+                  </div>
                   <div 
                     className="w-32 h-32 rounded-lg bg-[#f8f9fa] border-2 border-dashed border-gray-200 overflow-hidden mb-2 cursor-pointer"
                     onClick={() => document.getElementById('profileImage')?.click()}
@@ -119,9 +123,11 @@ const ProfileEdit = () => {
                 </div>
 
                 <div>
-                  <Label className="block text-base mb-2 font-medium">
-                    ニックネーム
-                  </Label>
+                  <div className="text-left">
+                    <Label className="text-base mb-2 font-medium inline-block">
+                      ニックネーム
+                    </Label>
+                  </div>
                   <Input
                     value={profile.nickname}
                     onChange={(e) => setProfile(prev => ({ ...prev, nickname: e.target.value }))}
@@ -131,9 +137,11 @@ const ProfileEdit = () => {
                 </div>
 
                 <div>
-                  <Label className="block text-base mb-2 font-medium">
-                    プロフィール文
-                  </Label>
+                  <div className="text-left">
+                    <Label className="text-base mb-2 font-medium inline-block">
+                      プロフィール文
+                    </Label>
+                  </div>
                   <Textarea
                     value={profile.bio}
                     onChange={(e) => setProfile(prev => ({ ...prev, bio: e.target.value }))}
