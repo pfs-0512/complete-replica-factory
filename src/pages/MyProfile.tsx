@@ -24,7 +24,7 @@ const MyProfile = () => {
     <div className="flex h-screen bg-gray-100">
       <Sidebar />
       <div className="flex-1 p-8">
-        <div className="max-w-3xl mx-auto">
+        <div className="w-full max-w-3xl">
           <div className="flex justify-between items-center mb-8">
             <h1 className="text-2xl font-semibold">マイプロフィール</h1>
             <Button onClick={() => navigate("/profile/edit")}>
@@ -56,31 +56,31 @@ const MyProfile = () => {
             </div>
 
             <CardContent className="space-y-4">
-              <div>
+              <div className="text-left">
                 <label className="text-sm font-medium text-gray-500">名前</label>
                 <p className="mt-1 text-lg font-semibold">{mockUser.name}</p>
               </div>
               
-              <div>
+              <div className="text-left">
                 <label className="text-sm font-medium text-gray-500">メールアドレス</label>
                 <p className="mt-1">{mockUser.email}</p>
               </div>
               
-              <div>
+              <div className="text-left">
                 <label className="text-sm font-medium text-gray-500">権限</label>
                 <p className="mt-1">
-                  <span className="inline-block px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
+                  <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
                     {mockUser.role}
                   </span>
                 </p>
               </div>
               
-              <div>
+              <div className="text-left">
                 <label className="text-sm font-medium text-gray-500">最終ログイン</label>
                 <p className="mt-1">{mockUser.lastLogin}</p>
               </div>
 
-              <div>
+              <div className="text-left">
                 <label className="text-sm font-medium text-gray-500">自己紹介</label>
                 <p className="mt-1 whitespace-pre-wrap">{mockUser.bio}</p>
               </div>
