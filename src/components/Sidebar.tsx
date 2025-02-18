@@ -31,6 +31,11 @@ const Sidebar = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
+  const handleNavigate = (e: React.MouseEvent, path: string) => {
+    e.preventDefault();
+    navigate(path);
+  };
+
   return (
     <aside className="w-64 border-r bg-white min-h-screen shadow-sm text-left">
       <nav className="p-4 space-y-6">
@@ -38,10 +43,7 @@ const Sidebar = () => {
         <div className="space-y-1">
           <SidebarLink
             href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              navigate("/");
-            }}
+            onClick={(e) => handleNavigate(e, "/")}
             isActive={isActive("/")}
           >
             <CircleDot className="w-5 h-5 text-gray-500 mr-3" />
@@ -53,10 +55,7 @@ const Sidebar = () => {
               <SidebarLink
                 key={category.path}
                 href={`/?category=${category.path}`}
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate(`/?category=${category.path}`);
-                }}
+                onClick={(e) => handleNavigate(e, `/?category=${category.path}`)}
                 isActive={location.search === `?category=${category.path}`}
               >
                 <span className="flex-1">{category.label}</span>
@@ -69,10 +68,7 @@ const Sidebar = () => {
         {/* マイプロフィール */}
         <SidebarLink
           href="/profile"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate("/profile");
-          }}
+          onClick={(e) => handleNavigate(e, "/profile")}
           isActive={isActive("/profile")}
         >
           <User className="w-5 h-5 text-gray-500 mr-3" />
@@ -83,10 +79,7 @@ const Sidebar = () => {
         {/* その他のメニュー項目 */}
         <SidebarLink
           href="/reservations"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate("/reservations");
-          }}
+          onClick={(e) => handleNavigate(e, "/reservations")}
           isActive={isActive("/reservations")}
         >
           <Store className="w-5 h-5 text-gray-500 mr-3" />
@@ -96,10 +89,7 @@ const Sidebar = () => {
 
         <SidebarLink
           href="/help"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate("/help");
-          }}
+          onClick={(e) => handleNavigate(e, "/help")}
           isActive={isActive("/help")}
         >
           <HelpCircle className="w-5 h-5 text-gray-500 mr-3" />
