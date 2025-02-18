@@ -6,7 +6,6 @@ import { Textarea } from "@/components/ui/textarea";
 import Sidebar from "@/components/Sidebar";
 import { useToast } from "@/components/ui/use-toast";
 import { useNavigate } from "react-router-dom";
-import { Upload } from "lucide-react";
 
 const ProfileEdit = () => {
   const navigate = useNavigate();
@@ -29,46 +28,6 @@ const ProfileEdit = () => {
     navigate("/profile");
   };
 
-  const FileInput = ({ label, onChange, accept, preview, aspectRatio = "aspect-[3/1]", isRounded = false }: {
-    label: string;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    accept: string;
-    preview: string;
-    aspectRatio?: string;
-    isRounded?: boolean;
-  }) => (
-    <div>
-      <label className="block text-sm font-medium text-gray-700 mb-2">
-        {label}
-      </label>
-      <div className={`relative group cursor-pointer ${aspectRatio} ${isRounded ? 'rounded-full' : 'rounded-lg'} overflow-hidden mb-2`}>
-        {preview ? (
-          <img
-            src={preview}
-            alt={label}
-            className="w-full h-full object-cover"
-          />
-        ) : (
-          <div className="w-full h-full bg-gray-100 flex items-center justify-center">
-            <span className="text-gray-400">画像なし</span>
-          </div>
-        )}
-        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-40 transition-all duration-300 flex items-center justify-center">
-          <div className="text-white opacity-0 group-hover:opacity-100 transition-all duration-300 flex flex-col items-center">
-            <Upload className="w-6 h-6 mb-2" />
-            <span className="text-sm">クリックして{label}を選択</span>
-          </div>
-        </div>
-        <Input
-          type="file"
-          accept={accept}
-          onChange={onChange}
-          className="absolute inset-0 opacity-0 cursor-pointer"
-        />
-      </div>
-    </div>
-  );
-
   return (
     <div className="flex min-h-screen bg-gray-100">
       <Sidebar />
@@ -78,45 +37,71 @@ const ProfileEdit = () => {
           
           <form onSubmit={handleSubmit} className="space-y-8">
             <div className="bg-white rounded-lg shadow-sm p-6 space-y-6">
-              <FileInput
-                label="カバー写真"
-                accept="image/*"
-                preview={profile.coverImage}
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                      setProfile(prev => ({
-                        ...prev,
-                        coverImage: reader.result as string
-                      }));
-                    };
-                    reader.readAsDataURL(file);
-                  }
-                }}
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  カバー写真
+                </label>
+                <div className="aspect-[3/1] rounded-lg bg-gray-200 overflow-hidden mb-2">
+                  {profile.coverImage ? (
+                    <img
+                      src={profile.coverImage}
+                      alt="カバー写真"
+                      className="w-full h-full object-cover"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-gray-200 flex items-center justify-center text-gray-400">
+                      カバー写真なし
+                    </div>
+                  )}
+                </div>
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setProfile(prev => ({
+                          ...prev,
+                          coverImage: reader.result as string
+                        }));
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                />
+              </div>
 
-              <FileInput
-                label="プロフィール画像"
-                accept="image/*"
-                preview={profile.profileImage || defaultProfileImage}
-                aspectRatio="aspect-square"
-                isRounded={true}
-                onChange={(e) => {
-                  const file = e.target.files?.[0];
-                  if (file) {
-                    const reader = new FileReader();
-                    reader.onloadend = () => {
-                      setProfile(prev => ({
-                        ...prev,
-                        profileImage: reader.result as string
-                      }));
-                    };
-                    reader.readAsDataURL(file);
-                  }
-                }}
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  プロフィール画像
+                </label>
+                <div className="w-32 h-32 rounded-full overflow-hidden mb-2 mx-auto">
+                  <img
+                    src={profile.profileImage || defaultProfileImage}
+                    alt="プロフィール画像"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) {
+                      const reader = new FileReader();
+                      reader.onloadend = () => {
+                        setProfile(prev => ({
+                          ...prev,
+                          profileImage: reader.result as string
+                        }));
+                      };
+                      reader.readAsDataURL(file);
+                    }
+                  }}
+                />
+              </div>
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
