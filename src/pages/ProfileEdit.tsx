@@ -32,7 +32,7 @@ const ProfileEdit = () => {
     <div className="flex min-h-screen bg-gray-100">
       <Sidebar />
       <main className="flex-1 p-8">
-        <div className="max-w-3xl mx-auto">
+        <div className="w-full max-w-3xl">
           <h1 className="text-2xl font-semibold mb-8">プロフィール編集</h1>
           
           <form onSubmit={handleSubmit} className="space-y-8">
@@ -77,7 +77,7 @@ const ProfileEdit = () => {
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   プロフィール画像
                 </label>
-                <div className="w-32 h-32 rounded-full overflow-hidden mb-2 mx-auto">
+                <div className="w-32 h-32 rounded-full overflow-hidden mb-2">
                   <img
                     src={profile.profileImage || defaultProfileImage}
                     alt="プロフィール画像"
