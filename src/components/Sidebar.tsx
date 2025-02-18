@@ -32,7 +32,7 @@ const Sidebar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   return (
-    <aside className="w-64 border-r bg-white min-h-screen shadow-sm">
+    <aside className="w-64 border-r bg-white min-h-screen shadow-sm text-left">
       <nav className="p-4 space-y-6">
         {/* レッスン一覧 */}
         <div className="space-y-1">
@@ -45,7 +45,7 @@ const Sidebar = () => {
             isActive={isActive("/")}
           >
             <CircleDot className="w-5 h-5 text-gray-500 mr-3" />
-            <span className="flex-1 truncate">レッスン一覧</span>
+            <span className="flex-1">レッスン一覧</span>
             <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
           </SidebarLink>
           <div className="pl-8 space-y-1">
@@ -59,7 +59,7 @@ const Sidebar = () => {
                 }}
                 isActive={location.search === `?category=${category.path}`}
               >
-                <span className="flex-1 truncate">{category.label}</span>
+                <span className="flex-1">{category.label}</span>
                 <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
               </SidebarLink>
             ))}
@@ -76,7 +76,7 @@ const Sidebar = () => {
           isActive={isActive("/profile")}
         >
           <User className="w-5 h-5 text-gray-500 mr-3" />
-          <span className="flex-1 truncate">マイプロフィール</span>
+          <span className="flex-1">マイプロフィール</span>
           <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
         </SidebarLink>
 
@@ -90,7 +90,7 @@ const Sidebar = () => {
           isActive={isActive("/reservations")}
         >
           <Store className="w-5 h-5 text-gray-500 mr-3" />
-          <span className="flex-1 truncate">予約管理</span>
+          <span className="flex-1">予約管理</span>
           <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
         </SidebarLink>
 
@@ -103,7 +103,7 @@ const Sidebar = () => {
           isActive={isActive("/help")}
         >
           <HelpCircle className="w-5 h-5 text-gray-500 mr-3" />
-          <span className="flex-1 truncate">ヘルプ</span>
+          <span className="flex-1">ヘルプ</span>
           <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
         </SidebarLink>
       </nav>
