@@ -69,7 +69,7 @@ const MyProfile = () => {
               <div>
                 <label className="text-sm font-medium text-gray-500">権限</label>
                 <p className="mt-1">
-                  <span className="px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
+                  <span className="inline-block px-2 py-1 bg-blue-50 text-blue-700 rounded-full text-xs font-medium">
                     {mockUser.role}
                   </span>
                 </p>
