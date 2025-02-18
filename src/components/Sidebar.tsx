@@ -67,33 +67,18 @@ const Sidebar = () => {
         </div>
 
         {/* マイプロフィール */}
-        <div className="space-y-1">
-          <SidebarLink
-            href="/profile"
-            onClick={(e) => {
-              e.preventDefault();
-              navigate("/profile");
-            }}
-            isActive={isActive("/profile")}
-          >
-            <User className="w-5 h-5 text-gray-500 mr-3" />
-            <span className="flex-1 truncate">マイプロフィール</span>
-            <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
-          </SidebarLink>
-          <div className="pl-8 space-y-1">
-            <SidebarLink
-              href="/profile/edit"
-              onClick={(e) => {
-                e.preventDefault();
-                navigate("/profile/edit");
-              }}
-              isActive={isActive("/profile/edit")}
-            >
-              <span className="flex-1 truncate">プロフィール編集</span>
-              <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
-            </SidebarLink>
-          </div>
-        </div>
+        <SidebarLink
+          href="/profile"
+          onClick={(e) => {
+            e.preventDefault();
+            navigate("/profile");
+          }}
+          isActive={isActive("/profile")}
+        >
+          <User className="w-5 h-5 text-gray-500 mr-3" />
+          <span className="flex-1 truncate">マイプロフィール</span>
+          <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
+        </SidebarLink>
 
         {/* その他のメニュー項目 */}
         <SidebarLink
