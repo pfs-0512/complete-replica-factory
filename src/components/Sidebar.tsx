@@ -1,3 +1,4 @@
+
 import { ChevronRight, CircleDot, Store, User, HelpCircle } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
 
@@ -10,7 +11,9 @@ const SidebarLink = ({ href, onClick, isActive, children }: {
   <a
     href={href}
     onClick={onClick}
-    className={`sidebar-link ${isActive ? "bg-gray-100" : ""}`}
+    className={`flex items-center px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 rounded-md ${
+      isActive ? "bg-gray-100" : ""
+    }`}
   >
     {children}
   </a>
@@ -34,11 +37,12 @@ const Sidebar = () => {
         {/* レッスン一覧 */}
         <div className="space-y-1">
           <SidebarLink
-            href="#"
+            href="/"
             onClick={(e) => {
               e.preventDefault();
               navigate("/");
             }}
+            isActive={isActive("/")}
           >
             <CircleDot className="w-5 h-5 text-gray-500 mr-3" />
             <span className="flex-1 truncate">レッスン一覧</span>
@@ -47,8 +51,8 @@ const Sidebar = () => {
           <div className="pl-8 space-y-1">
             {categories.map((category) => (
               <SidebarLink
-                key={`lesson-${category.path}`}
-                href="#"
+                key={category.path}
+                href={`/?category=${category.path}`}
                 onClick={(e) => {
                   e.preventDefault();
                   navigate(`/?category=${category.path}`);
@@ -62,40 +66,38 @@ const Sidebar = () => {
           </div>
         </div>
 
-        {/* 動画管理 */}
+        {/* マイプロフィール */}
         <div className="space-y-1">
           <SidebarLink
-            href="#"
+            href="/profile"
             onClick={(e) => {
               e.preventDefault();
-              navigate("/videos");
+              navigate("/profile");
             }}
+            isActive={isActive("/profile")}
           >
-            <CircleDot className="w-5 h-5 text-gray-500 mr-3" />
-            <span className="flex-1 truncate">動画管理</span>
+            <User className="w-5 h-5 text-gray-500 mr-3" />
+            <span className="flex-1 truncate">マイプロフィール</span>
             <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
           </SidebarLink>
           <div className="pl-8 space-y-1">
-            {categories.map((category) => (
-              <SidebarLink
-                key={`video-${category.path}`}
-                href="#"
-                onClick={(e) => {
-                  e.preventDefault();
-                  navigate(`/videos?category=${category.path}`);
-                }}
-                isActive={location.pathname === '/videos' && location.search === `?category=${category.path}`}
-              >
-                <span className="flex-1 truncate">{category.label}</span>
-                <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
-              </SidebarLink>
-            ))}
+            <SidebarLink
+              href="/profile/edit"
+              onClick={(e) => {
+                e.preventDefault();
+                navigate("/profile/edit");
+              }}
+              isActive={isActive("/profile/edit")}
+            >
+              <span className="flex-1 truncate">プロフィール編集</span>
+              <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
+            </SidebarLink>
           </div>
         </div>
 
-        {/* 予約管理 */}
+        {/* その他のメニュー項目 */}
         <SidebarLink
-          href="#"
+          href="/reservations"
           onClick={(e) => {
             e.preventDefault();
             navigate("/reservations");
@@ -107,23 +109,8 @@ const Sidebar = () => {
           <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
         </SidebarLink>
 
-        {/* マイプロフィール */}
         <SidebarLink
-          href="#"
-          onClick={(e) => {
-            e.preventDefault();
-            navigate("/profile");
-          }}
-          isActive={isActive("/profile")}
-        >
-          <User className="w-5 h-5 text-gray-500 mr-3" />
-          <span className="flex-1 truncate">マイプロフィール</span>
-          <ChevronRight className="w-4 h-4 text-gray-400 flex-shrink-0" />
-        </SidebarLink>
-
-        {/* ヘルプ */}
-        <SidebarLink
-          href="#"
+          href="/help"
           onClick={(e) => {
             e.preventDefault();
             navigate("/help");
